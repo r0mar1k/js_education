@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+					  <h1>Задача 6</h1>
+  <p>З клавіатури вводяться вартість товару та кількість одиниць 3 товарів. Обчислити вартість кожного товару окремо та загальну вартість. Вивести чек (як у супермаркеті) використовуючи елементи розмітки.</p>
+	<script>
+		//Вводимо необхідні дані
+let productCount1 = prompt('Хліб. Введіть кількість товарів', '')
+let productPrice1 = prompt('Хліб. Введіть ціну','')
+let productCount2 = prompt('Сіль. Введіть кількість товарів', '')
+let productPrice2 = prompt('Сіль. Введіть ціну','')
+let productCount3 = prompt('Вода. Введіть кількість товарів', '')
+let productPrice3 = prompt('Вода. Введіть ціну','')
+//Обчислюємо результат
+let totalPriceProduct1 = productCount1 * productPrice1
+let totalPriceProduct2 = productCount2 * productPrice3
+let totalPriceProduct3 = productCount3 * productPrice3
+let totalPrice = totalPriceProduct1 + totalPriceProduct2 + totalPriceProduct3
+let pdv = totalPrice * 0.20
+//Виводимо результат
+document.write(`
+<div>
+<h3>Фіскальний чек</h3>
+<p>Товар Кількість Ціна Сума</p>
+<p>Хліб........${productCount1}.........${productPrice1}грн..${totalPriceProduct1}грн </p>
+<p>Сіль........${productCount2}.........${productPrice2}грн..${totalPriceProduct2}грн </p>
+<p>Хліб........${productCount3}.........${productPrice3}грн..${totalPriceProduct3}грн </p>
+<p>Всього: ${totalPrice}грн</p>
+<p>ПДВ 20%: ${pdv.toFixed(2)}грн</p>
+<h3>Дякуємо за покупку!</h3>
+</div>
+
+	`)
+	</script>
+</body>
+</html>
