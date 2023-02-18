@@ -12,10 +12,11 @@
 		//Вводимо необхідні дані
 		let sec = parseFloat(prompt('Введіть кількість секунд',''))
 //Обчислюємо результат
-let min = Math.floor(sec / 60) 
+let min = Math.floor(sec % 3600 / 60) 
 let hour = Math.floor(sec / 3600)
+let secN = Math.floor((sec % 3600) % 60)
 //Виводимо результат
-document.write(`З початку доби пройшло ${hour} годин ${min} хвилин`)
+document.write(`З початку доби пройшло ${hour} годин ${min} хвилин ${secN} секунд`)
 	</script>
 </body>
 </html>
