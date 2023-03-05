@@ -14,7 +14,7 @@
 //Обчислюємо результат
 let min = Math.floor(sec % 3600 / 60) 
 let hour = Math.floor(sec / 3600)
-let secN = Math.floor((sec % 3600) % 60)
+let secN = Math.floor(sec % 60)
 //Виводимо результат
 document.write(`З початку доби пройшло ${hour} годин ${min} хвилин ${secN} секунд`)
 	</script>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Задача 13</h1>
+	<p>Морський бій. Комп’ютер випадково розташовує одиночний корабель на полі розміром N*M. Маючи К снарядів користувач намагається потопити корабель. 
+</p>
+	<script>
+const N = minN=1, maxN=4
+const M = minM=1, maxM=4
+const K = minK=1, maxK=4
+const randomN = minN+Math.floor(Math.random()*maxN)
+const randomM = minM+Math.floor(Math.random()*maxM)
+const randomK = minK+Math.floor(Math.random()*maxK)
+const positivResult = 'Вітаємо! Влучний постріл. \nКорабель знищено.'
+const negativResult = 'Всі спроби невдалі;( \n Корабель не знищено.'
+for(i=1;i<=randomK;i++){
+const try1 = parseInt(prompt(`Вам доступно ${randomK} снарядів. \n Cпроба №${i} \nВведіть координат по горизонталі. \n Від 1 до 4`))
+const try2 = parseInt(prompt(`Введіть координат по вертикалі. \n Cпроба №${i} \n Від 1 до 4`))
+if (randomN === try1 && randomM === try2){
+	alert(positivResult)
+	break
+}
+}
+document.write(`<h3>${negativResult}</h3>`)
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -17,8 +17,10 @@ if (quantityMoney < productPrice)
 	document.write('Недостатньо коштів. На хрестик не пишемо!')
 else if (quantityMoney == productPrice)
 	document.write('Вписались чітко')
-else 
+else if ((productPrice+4) < quantityMoney)
 	document.write('Лотерейку за 4 грн придбати не бажаєте?')
+else
+	document.write('Дякуємо за покупку!')
 	</script>
 </body>
 </html>

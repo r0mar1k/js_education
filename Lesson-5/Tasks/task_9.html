@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+		  <h1>Задача 9</h1>
+  <p>Користувач загадує число. Комп’ютер задає питання поки не вгадає число користувача (використати confirm).</p>
+	<script>
+let i = 1
+do {
+const randomNumber = 1+Math.floor(Math.random()*10)
+let window = confirm(`Hello! \n I'm the computer. \n I try to guess the number 1-10. Try №${i}\n Is it ${randomNumber} ?`)
+if (window === true)
+    break
+i++
+}
+while (window !== true)
+	document.write('<h2>I`ve done it!</h2>')
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Задача 15</h1>
+	<p>Користувача поступово вводить показники температури протягом року. Знайти середню температуру.</p>
+	<script>
+		//Ввід значень
+let sum = 0
+let i = 0 // Лічильник кількості введень
+let temperatureValue
+ //Цикл на запит
+do{
+ temperatureValue = parseFloat(prompt('Введіть показники температури'))
+ if (!isFinite(temperatureValue))
+ 	break
+sum += temperatureValue
+i++
+}
+while (isFinite(temperatureValue))
+let averageTemperature = sum / i
+document.write(`Кількість введень ${i}<br>Середня температура ${averageTemperature.toFixed(2)} градусів по Цельсію`)
+
+
+</script>
+</body>
+</html>

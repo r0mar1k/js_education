@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	  <h1>Задача 8</h1>
+  <p>Користувач загадує число. За 3 спроби комп’ютер намагається вгадати число користувача (використати confirm).</p>
+	<script>
+
+let i = 1
+do {
+const randomNumber = 1+Math.floor(Math.random()*10)
+let window = confirm(`Hello! \n I'm computer. \n I try to guess the number 1-10. Try №${i}\n Is it ${randomNumber} ?`)
+if (window === true){
+	alert('Super!')
+	break
+	}
+else {
+	alert('Ops..')
+}
+	i++
+}
+while (i<=3)
+
+	</script>
+</body>
+</html>

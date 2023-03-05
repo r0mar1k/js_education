@@ -13,19 +13,19 @@
 const humanAge = parseInt(prompt('Скільки Вам років?',''))	
 const childAgeCeil = 6
 const pupilAgeCeil = 15
-const studentAgeCeil = 27
+const studentAgeCeil = 27        
 const workerAgeCeil = 64
 const ageCeil = 111
 //Обчислюємо результат і виводимо результат 
 if (humanAge <= childAgeCeil)
 	document.write('<h2>Ви є дитиною</h2>')
-else if (humanAge > childAgeCeil && humanAge <= pupilAgeCeil)
+else if (humanAge <= pupilAgeCeil)
 	document.write('<h2>Ви є школярем</h2>')
-else if (humanAge > pupilAgeCeil && humanAge <= studentAgeCeil)
+else if (humanAge <= studentAgeCeil)
 	document.write('<h2>Ви є студентом</h2>')
-else if (humanAge > studentAgeCeil && humanAge <= workerAgeCeil)
+else if (humanAge <= workerAgeCeil)
 	document.write('<h2>Ви є працівником</h2>')
-else if (humanAge > workerAgeCeil && humanAge <= ageCeil)
+else if (humanAge <= ageCeil)
 	document.write('<h2>Ви є пенсіонером</h2>')
 else
 	document.write('<h2>Робот?о_О</h2>')

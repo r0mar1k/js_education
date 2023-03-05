@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+				  <h1>Задача 11</h1>
+  <p>Знайти суму 5 непарних чисел, що знаходяться між заданими користувачем числами.</p>
+	<script>
+
+let sum = 0
+let q = 0 //Лічильник непарних чисел
+
+for(let j=0;j<=100;j++){
+const givenNumber = parseInt(prompt('Введіть числа'))
+
+if(givenNumber%2==1){
+	++q
+  sum += givenNumber}
+ 
+ if (!isFinite(givenNumber) || q == 5)
+	break
+}
+document.write(`Кількість непарних чисел = ${q} <br> Сума непарних введених чисел = ${sum}`)
+
+	</script>
+</body>
+</html>
