@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 3</h1>
+    <p>
+      Створити окремі функції, які для 4 чисел знаходять: <br />
+      1)суму;
+      <br />
+      2)добуток;
+      <br />
+      3)середнє арифметичне;
+      <br />
+      4)мінімальне значення.
+    </p>
+    <script>
+      const a = parseInt(prompt("a="))
+      const b = parseInt(prompt("b="))
+      const c = parseInt(prompt("c="))
+      const d = parseInt(prompt("d="))
+      function getSum(a, b, c, d) {
+        return a + b + c + d
+      }
+      function getMult(a, b, c, d) {
+        return a * b * c * d
+      }
+      function getAvarage(a, b, c, d) {
+        return (a + b + c + d) / 4
+      }
+      function getMinNumber(a, b, c, d) {
+        return Math.min(a, b, c, d)
+      }
+      document.write(
+        `Сума = ${getSum(a, b, c, d)}; <br>Добуток = ${getMult(
+          a,
+          b,
+          c,
+          d
+        )} <br>Сер. знач. = ${getAvarage(
+          a,
+          b,
+          c,
+          d
+        )} <br>Мін. знач. = ${getMinNumber(a, b, c, d)}`
+      )
+    </script>
+  </body>
+</html>

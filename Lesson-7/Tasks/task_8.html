@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 8</h1>
+    <p>
+      Створити функцію, яка виводить банер. У функцію передаються: зображення,
+      заголовок та посилання, куди переходимо при кліку на зображення (тег img
+      повине знаходитись у середині тега a: &lt;a&gt; &lt;img src=”шлях”&gt;
+      &lt;/a&gt;)
+    </p>
+    <script>
+      const img = "./img/g.png"
+      const header = "Google"
+      const link = "https://www.google.com/"
+      function createBanner(img, header, link) {
+        document.write(
+          `<h1>${header}</h1>
+		  <br>
+		  <a target="blank" href="${link}"><img src="${img}"></a>`
+        )
+      }
+      createBanner(img, header, link)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 6</h1>
+    <p>
+      Створити функцію, яка створює таблицю з вказаною кількістю рядків і
+      стовпців (таблиця заповнюється заданим фіксованим повідомленням).
+    </p>
+    <script>
+      const row = parseInt(prompt(`Вкажіть кількість рядків`))
+      const column = parseInt(prompt(`Вкажіть кількість стовпців`))
+      const text = prompt("Яким текстом наповнити?")
+      function getTable(row, column, text) {
+        document.write(`<table border=2px><tbody>`)
+        for (let i = 0; i < row; i++) {
+          document.write(`<tr>`)
+          for (let j = 0; j < column; j++) {
+            document.write(`<td>${text}</td>`)
+          }
+          document.write(`</tr>`)
+        }
+        document.write(`</tr></tbody>`)
+      }
+      getTable(row, column, text)
+    </script>
+  </body>
+</html>

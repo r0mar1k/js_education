@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+				  <h1>Задача 5</h1>
+  <p>Створити окремі функції, які переводять:
+<ol>
+	<li>Сантиметри у дюйми;</li>
+	<li>Кілограми у фунти;</li>
+	<li>Кілометри у милі.</li>
+</ol>
+  </p>
+	<script>
+		//Введення даних
+		 const sm = parseFloat(prompt("Скільки сантиметрів перевести в дюйми?"))
+      const kg = parseFloat(prompt("Скільки кілограм перевести в фунти"))
+      const km = parseFloat(prompt("Скільки кілометрів перевести в милі"))		
+	//См в дюйми; 1 дюйм(inch) = 2,54 см
+	function smToInch(sm) {
+		return sm/2.54
+	}
+//Кг в фунти; 1 кг = 2,20 фунт(lb)
+function kgToPounds(kg) {
+		return kg*2.20
+	}
+//Км в милі; 1 миля = 1,6 км
+function kmToMl(km) {
+		return km/1.6
+	}
+	//Виклик функцій
+	let inch = smToInch(sm)
+	let lb = kgToPounds(kg)
+	let ml = kmToMl(km)
+	//Виведення
+	 document.write(`${sm} сантиметрів = ${inch.toFixed(2)} дюймів<br> 
+	 ${kg} кілограм = ${lb.toFixed(2)} фунтів<br>
+	 ${km} кілометрів = ${ml.toFixed(2)} миль<br>`)
+	</script>
+</body>
+</html>

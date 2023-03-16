@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 9</h1>
+    <p>
+      Дано покази температур (довільна кількість). Розробити функцію, яка
+      дозволить підрахувати кількість від’ємних показів температури.
+    </p>
+    <script>
+      function getValueNegativeTemperature() {
+        let negativeTemperatureCounter = 0
+        let temperatureValue
+        do {
+          temperatureValue = parseFloat(prompt("Введіть показники температури"))
+          if (temperatureValue < 0) negativeTemperatureCounter++
+        } while (isFinite(temperatureValue))
+        return negativeTemperatureCounter
+      }
+      let result = getValueNegativeTemperature()
+      document.write(`Кількість від'ємних показників температури = ${result}`)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 10</h1>
+    <p>
+      Дано покази температур (довільна кількість). Розробити функцію, яка
+      дозволить знайти середнє значення для додатних показів температури.
+    </p>
+    <script>
+      //==============Варіант_1==============================
+      function getValuePositiveTemperature() {
+        let positiveTemperatureCounter = 0
+        let positiveTemperatureSum = 0
+        let temperatureValue
+        do {
+          temperatureValue = parseFloat(prompt("Введіть показники температури"))
+          if (temperatureValue > 0) {
+            positiveTemperatureCounter++
+            positiveTemperatureSum += temperatureValue
+          }
+        } while (isFinite(temperatureValue))
+        return positiveTemperatureSum / positiveTemperatureCounter
+      }
+      let result = getValuePositiveTemperature()
+      document.write(
+        `Середнє значення додатних показників температури = ${result.toFixed(
+          1
+        )}`
+      )
+
+      //====================Варіант_2================================
+      // const quantityNumbers = parseInt(prompt("Введіть довільну кількість"))
+
+      // function getArrayWithRandomTemperatures() {
+      //   let randomTemperatutes = []
+      //   for (let i = 0; i < quantityNumbers; i++) {
+      //     let minNumber = -100,
+      //       maxNumber = +100
+      //     let randomNumber =
+      //       minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+      //     randomTemperatutes.push(randomNumber)
+      //   }
+      //   document.write(randomTemperatutes)
+      //   return randomTemperatutes
+      // }
+      // let randomTemperatutes = getArrayWithRandomTemperatures(quantityNumbers)
+
+      // function getAvarageValueOfPositiveTemperatures(array) {
+      //   let sum = 0
+      //   let counter = 0
+      //   for (let i = 0; i < array.length; i++) {
+      //     if (array[i] >= 0) {
+      //       sum += array[i]
+      //       counter++
+      //     }
+      //   }
+      //   return sum / counter
+      // }
+      // let avaragePositiveTemperatures =
+      //   getAvarageValueOfPositiveTemperatures(randomTemperatutes)
+      // document.write(
+      //   `<br>Середнє значення додатних показників температури = ${avaragePositiveTemperatures.toFixed(
+      //     1
+      //   )}`
+      // )
+
+      //====================Що ліпше?=============================
+    </script>
+  </body>
+</html>
