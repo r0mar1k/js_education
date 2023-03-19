@@ -13,24 +13,25 @@
     </p>
 
     <script>
-      function randomImg() {
+      function getRandomImg() {
         const randomNumber = 1 + Math.floor(Math.random() * 4)
         switch (randomNumber) {
           case 1:
-            document.write(`<img src="./img/apple.png">`)
-            break
+            return "./img/apple.png"
           case 2:
-            document.write(`<img src="./img/banana.png">`)
-            break
+            return "./img/banana.png"
           case 3:
-            document.write(`<img src="./img/cherry.png">`)
-            break
+            return "./img/cherry.png"
           case 4:
-            document.write(`<img src="./img/watermelon.png">`)
-            break
+            return "./img/watermelon.png"
         }
       }
-      randomImg()
+      let way = getRandomImg()
+
+      function showImg(way) {
+        document.write(`<img src="${way}">`)
+      }
+      showImg(way)
     </script>
   </body>
 </html>

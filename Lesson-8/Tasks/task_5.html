@@ -48,25 +48,30 @@
       //Виклик функції_2_1
       let quantityGoodScores = getQuantityGoodScores(scores)
       //Функція_2_2. Підрахувати кількість оцінок, які нижче середнього
-      function getQuantityScoresLowerAvarage(array) {
+      function getAvarageScore(array) {
         let sum = 0
         for (let i = 0; i < array.length; i++) {
           sum += array[i]
         }
-        let avarageScore = sum / array.length
+        return sum / array.length
+      }
+      //Виклик функції_2_2
+      let avarageScore = getAvarageScore(scores)
+      //Функція_2_3. Підрахувати кількість оцінок, які нижче середнього
+      function getScoresLowerAvarage(avarageScore, array) {
         let counter = 0
         for (let j = 0; j < array.length; j++) {
           if (array[j] < avarageScore) counter++
         }
         return counter
       }
-      //Виклик функції_2_2
-      let quantityScoresLowerAvarage = getQuantityScoresLowerAvarage(scores)
+      //Виклик функції_2_3
+      let scoresLowerAvarage = getScoresLowerAvarage(avarageScore, scores)
       //Виведення результату
       document.write(`<ul>
   <li>Кількість двійок: ${quantityScore_2}</li>
   <li>Кількість хороших оцінок (добре, відмінно): ${quantityGoodScores}</li>
-  <li>Кількість оцінок, які нижче середнього: ${quantityScoresLowerAvarage}</li></ul>`)
+  <li>Кількість оцінок, які нижче середнього: ${scoresLowerAvarage}</li></ul>`)
     </script>
   </body>
 </html>
