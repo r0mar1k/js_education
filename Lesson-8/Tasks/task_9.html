@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 9</h1>
+    <p>
+      Морський бій. Користувач вводить кількість клітинок одновимірного масиву
+      та кількість одиночних кораблів. Комп’ютер довільно розміщує ці одиночні
+      кораблі у масиві по один у клітинці (якщо у клітинці 0, то клітинка пуста,
+      якщо 1 – то це означає, що там є корабель). Користувач вводить номер
+      клітинки, куди стріляє. Гра продовжується до тих пір, поки не будуть
+      потоплені усі кораблі.
+    </p>
+    <script>
+      // Введення данних
+      const cellsNumber = parseInt(prompt("Вкажіть кількість клітинок на полі"))
+      const shipsNumber = parseInt(
+        prompt("Вкажіть кількість одиночних кораблів")
+      )
+      //Функція_1. Створення масиву
+      function getArray(cellsNumber, shipsNumber) {
+        let array = []
+        const minNumber = 0
+        const maxNumber = 1
+        let counter_0 = 0 //лічильник для кількості нулів
+        let counter_1 = 0 //лічильник для кількості одиниць
+        const quantityNulls = cellsNumber - shipsNumber //перспективна кількість нулів в масиві
+        for (let i = 0; i < cellsNumber; i++) {
+          const randomNumber =
+            minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+          if (randomNumber === 1 && counter_1 !== shipsNumber) {
+            array.push(randomNumber)
+            counter_1++
+          } else if (randomNumber === 0 && counter_0 < quantityNulls) {
+            array.push(randomNumber)
+            counter_0++
+          } else if (randomNumber === 0 && counter_0 >= quantityNulls)
+            array.push(1)
+          else array.push(0)
+        }
+        return array
+      }
+      //Виклик функції_1
+      let array = getArray(cellsNumber, shipsNumber)
+      //Функція_2. Обчислення та виведення результату
+      //Користувач вводить номер клітинки, куди стріляє. Гра продовжується до тих пір, поки не будуть потоплені усі кораблі.
+      function resultOfGame(cellsNumber, shipsNumber, array) {
+        let result
+        let counter = shipsNumber //лічильник кількості потоплених кораблів
+        while (counter !== 0) {
+          const number = parseInt(
+            prompt(`Введіть номер клітинки від 1 до ${cellsNumber}`)
+          )
+          if (array[number - 1] === 1) {
+            array[number - 1] = 0
+            counter--
+            alert(`Втонув! Залишилось ${counter}. Наступний постріл`)
+          } else alert("Мимо")
+        }
+        document.write("Вітаємо! Усі кораблі потоплені")
+      }
+      //Виклик функції_2
+      let result = resultOfGame(cellsNumber, shipsNumber, array)
+    </script>
+  </body>
+</html>

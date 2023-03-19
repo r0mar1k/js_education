@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 6</h1>
+    <p>
+      Дано послідовність цін товарів та назв (у окремих масивах). Вивести на
+      екран ті, які може собі дозволити користувач (кількість грошей задається).
+      Приклад збереження даних:
+    </p>
+    <img src="./img/task_6.png" />
+    <br />
+    <!-- Був вихідний і було натхнення -->
+    <script>
+      //Функція_1. Введення даних та створення масивів "назви товарів" та "ціни товарів"
+      function getArraysWithNamesAndPrices() {
+        let arrayNames = []
+        let arrayPrices = []
+        let names
+        let prices
+        do {
+          names = prompt("Введіть назву товару")
+          if (names === null) break
+          prices = parseFloat(prompt("Введіть ціну"))
+          arrayNames.push(names)
+          arrayPrices.push(prices)
+        } while (isFinite(prices))
+        if (isNaN(arrayPrices[arrayPrices.length - 1])) {
+          arrayPrices.length = arrayPrices.length - 1 //зменшення масиву на 1, бо при скасуванні чи Esc в кінці NaN
+        }
+        if (arrayNames.length !== arrayPrices.length)
+          arrayNames.length = arrayNames.length - 1
+        alert("Дані введено! \n Наступний крок - введення кількості грошей")
+        return [arrayNames, arrayPrices]
+      }
+      //Виклик функції_1
+      let arraysWithNamesAndPrices = getArraysWithNamesAndPrices()
+      //Сепарація масивів
+      let productNames = arraysWithNamesAndPrices[0]
+      let productPrices = arraysWithNamesAndPrices[1]
+      //Функція_1_1 для виведення збережених даних
+      function writeSavedData(productNames, productPrices) {
+        document.write("Збережені дані:<br>")
+        document.write(
+          `<div style="border: 1px solid #000;"> let productPrices = [`
+        )
+        for (let i = 0; i < productPrices.length; i++) {
+          document.write(`${productPrices[i]}`)
+          if (i + 1 >= productPrices.length) break
+          document.write(`, `)
+        }
+        document.write(`]<br>`)
+        document.write(`let productTitles = [`)
+        sum = 0
+        for (let i = 0; i < productPrices.length; i++) {
+          document.write(`'${productNames[i]}'`)
+          if (i + 1 >= productPrices.length) break
+          document.write(`, `)
+        }
+        document.write(`]`)
+        document.write(`</div>`)
+      }
+      //Виклик
+      let savedData = writeSavedData(productNames, productPrices)
+      //Функція_2. Вивести на екран ті, які може собі дозволити користувач (кількість грошей задається)
+      function getAvailableProductsForUser(productNames, productPrices) {
+        let money = parseFloat(prompt("Введіть кількість грошей"))
+        let sum = 0
+        document.write(
+          "<br>На вказану кількість грошей користувач може собі дозволити:<ul>"
+        )
+        for (let i = 0; sum + productPrices[i] <= money; i++) {
+          sum += productPrices[i]
+          document.write(
+            `<li>${productNames[i]} за ${productPrices[i]} грн</li>`
+          )
+        }
+        if (sum === 0) document.write("Нічого;()")
+        document.write(`</ul>`)
+        return money
+      }
+      //Виклик функції_2. Повернення кількості грошей для подальших дурниць
+      let availableProductsForUser = getAvailableProductsForUser(
+        productNames,
+        productPrices
+      )
+      //Функція_(бонус) для виведення даних. Товарів, що йому доступні
+      function getAvailableProductsForUserFinish(
+        money,
+        productNames,
+        productPrices
+      ) {
+        let sum = 0
+        document.write("Результат:<br>")
+        document.write(
+          `<div style="border: 1px solid #000;"> let productPrices = [`
+        )
+        for (let i = 0; sum + productPrices[i] <= money; i++) {
+          sum += productPrices[i]
+          document.write(`${productPrices[i]}`)
+          if (sum + productPrices[i + 1] >= money) break
+          document.write(`, `)
+        }
+        document.write(`]<br>`)
+        document.write(`let productTitles = [`)
+        sum = 0
+        for (let i = 0; sum + productPrices[i] <= money; i++) {
+          sum += productPrices[i]
+          document.write(`'${productNames[i]}'`)
+          if (sum + productPrices[i + 1] >= money) break
+          document.write(`, `)
+        }
+        document.write(`]`)
+        document.write(`</div>`)
+      }
+      //Виклик бонусної функції
+      let result = getAvailableProductsForUserFinish(
+        availableProductsForUser,
+        productNames,
+        productPrices
+      )
+    </script>
+  </body>
+</html>

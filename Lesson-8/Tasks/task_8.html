@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 8</h1>
+    <p>
+      Дано одновимірний масив, у якому зберігається певна виграшна сума
+      (елементи заповнюються випадковим чином значеннями від -500 до 500).
+      Надаючи користувачу можливість вибирати номери елементів (поки він не
+      відмовиться). Знаходити сумарний виграш.
+    </p>
+    <script>
+      //1.генерується випадковим чином масив на N кількість елементів значеннями від -500 до 500 - гроші в грн
+      //2.надати користувачи вводити числа, які будуть відповідати індексу елемента в масиві з грошима
+      //3.вміст елемента масиву додавати
+      //Функція_1. Створення масиву з рандомно згенерованим числовим змістом
+      function getArrayWithRandomNumbers(howManyElements) {
+        const minNumber = -500
+        const maxNumber = 500
+        let array = []
+        for (let i = 0; i < howManyElements; i++) {
+          const randomNumber =
+            minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+          array.push(randomNumber)
+        }
+        return array
+      }
+      //Виклик функції_1. Вказуємо кількість елементів в масиві
+      let arrayWithRandomNumbers = getArrayWithRandomNumbers(10)
+      //Функція_2. Надаючи користувачу можливість вибирати номери елементів (поки він не відмовиться). Знаходити сумарний виграш.
+      function getNumbersFromUserAndCountSum(array) {
+        alert("Вас вітає Лотомаркет! Поступово вводьте числа")
+        let userNumbers
+        let sum = 0
+        do {
+          userNumbers = parseInt(
+            prompt(
+              "Введіть номер елемента від 1 до 10. \n Для переривання натисніть Esc або Скасувати"
+            )
+          )
+          if (isNaN(userNumbers)) break
+          sum += array[userNumbers - 1]
+        } while (isFinite(userNumbers))
+        return sum
+      }
+      //Виклик функції_2
+      let winSum = getNumbersFromUserAndCountSum(arrayWithRandomNumbers)
+      //Виведення результату + функція
+      function getResult(winSum) {
+        let result =
+          winSum > 0
+            ? `Ваш виграш становить ${winSum} грн`
+            : `Ваш програш становить ${winSum} грн <br>Чекайте дзвінка`
+        return result
+      }
+      result = getResult(winSum)
+      document.write(result)
+    </script>
+  </body>
+</html>

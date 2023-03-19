@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 1</h1>
+    <p>
+      Дано масив, який містить оцінки з К предметів. Знайти середній бал і
+      з’ясувати до якої категорії він відноситься (відмінник, двійочник (має
+      хоча би одну двійку), хорошист (оцінки добре і відмінно), трійочник(є хоча
+      би одна трійка)).
+    </p>
+    <script>
+      //Запит на кількість предметів
+      const subjectsNumbers = parseInt(prompt("Введіть кількість предметів"))
+      //Функція_1 генерує довільніцінки і повертає масив
+      function getArrayWithRandomScores(number) {
+        let randomScores = []
+        for (let i = 0; i < subjectsNumbers; i++) {
+          let minNumber = 2,
+            maxNumber = 5
+          let randomNumber =
+            minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+          randomScores.push(randomNumber)
+        }
+        return randomScores
+      }
+      //Запускаємо функцію, передаючи к-ть предметів. Scores став масивом
+      let scores = getArrayWithRandomScores(subjectsNumbers)
+      //Функція_2 визначає категорію учня, знаходячи мінімальну оцінку
+      function getTypeOfStydent(scores) {
+        let result = Math.min(...scores)
+        switch (result) {
+          case 2:
+            result = "Двійочник"
+            break
+          case 3:
+            result = "Трійочник"
+            break
+          case 4:
+            result = "Хорошист"
+            break
+          case 5:
+            result = "Відмінник"
+            break
+        }
+        return result
+      }
+      //Запускаємо функцію_2, передаючи попередньо створений масив в Функції_1
+      let typeOfStydent = getTypeOfStydent(scores)
+      //Функція_3 рахує середній бал
+      function getAvarageScore(scores) {
+        let sum = 0
+        for (let i = 0; i < scores.length; i++) {
+          sum += scores[i]
+        }
+        return sum / scores.length
+      }
+      //Запускаємо функцію_3, передаючи попередньо створений масив в Функції_1
+      let avarageScore = getAvarageScore(scores)
+      //Виводимо результат
+      document.write(
+        `Оцінки: ${scores}<br>
+        Середній бал даного учня = ${avarageScore.toFixed(
+          1
+        )}<br> Даний учень є ${typeOfStydent}`
+      )
+    </script>
+  </body>
+</html>

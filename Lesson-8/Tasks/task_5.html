@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 5</h1>
+    <p>Дано послідовність оцінок учня. Підрахувати кількість:</p>
+    <ol>
+      <li>двійок;</li>
+      <li>кількість хороших оцінок (добре, відмінно);</li>
+      <li>кількість оцінок, які нижче середнього.</li>
+    </ol>
+    <script>
+      //Функція_1. Створення масиву з введених даних
+      function getScores() {
+        let array = []
+        let scores
+        do {
+          scores = parseInt(prompt("Введіть оцінку від 2 до 5"))
+          array.push(scores)
+        } while (isFinite(scores))
+        array.length = array.length - 1 //зменшення масиву на 1, бо при скасуванні чи Esc в кінці NaN
+        return array
+      }
+      //Виклик функції_1
+      let scores = getScores()
+      //Функція_2. Підрахувати кількість двійок
+      function getQuantityScore_2(array) {
+        let counter = 0
+        for (let i = 0; i < array.length; i++) {
+          if (array[i] === 2) counter++
+        }
+        return counter
+      }
+      //Виклик функції_2
+      let quantityScore_2 = getQuantityScore_2(scores)
+      //Функція_2_1. Підрахувати кількість хороших оцінок (добре(4), відмінно(5))
+      function getQuantityGoodScores(array) {
+        let counter = 0
+        for (let i = 0; i < array.length; i++) {
+          if (array[i] === 4 || array[i] === 5) counter++
+        }
+        return counter
+      }
+      //Виклик функції_2_1
+      let quantityGoodScores = getQuantityGoodScores(scores)
+      //Функція_2_2. Підрахувати кількість оцінок, які нижче середнього
+      function getQuantityScoresLowerAvarage(array) {
+        let sum = 0
+        for (let i = 0; i < array.length; i++) {
+          sum += array[i]
+        }
+        let avarageScore = sum / array.length
+        let counter = 0
+        for (let j = 0; j < array.length; j++) {
+          if (array[j] < avarageScore) counter++
+        }
+        return counter
+      }
+      //Виклик функції_2_2
+      let quantityScoresLowerAvarage = getQuantityScoresLowerAvarage(scores)
+      //Виведення результату
+      document.write(`<ul>
+  <li>Кількість двійок: ${quantityScore_2}</li>
+  <li>Кількість хороших оцінок (добре, відмінно): ${quantityGoodScores}</li>
+  <li>Кількість оцінок, які нижче середнього: ${quantityScoresLowerAvarage}</li></ul>`)
+    </script>
+  </body>
+</html>

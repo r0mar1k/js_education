@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 4</h1>
+    <p>
+      Дано послідовність номерів автомобілів. Підрахувати кількість номерів, які
+      :
+    </p>
+    <ul>
+      <li>починаються на букву «А»;</li>
+      <li>перша і остання літери співпадають;</li>
+      <li>складаються з більше ніш 5 символів;</li>
+    </ul>
+    <script>
+      //Функція_1. Створення масиву з введених даних
+      function getCarsPlatesNumbers() {
+        const quantityCars = parseInt(prompt("Введіть кількість автомобілів"))
+        let arr = []
+        for (let i = 1; i <= quantityCars; i++) {
+          const carsPlatesNumber = prompt(
+            `Вкажіть номерний знак \n у форматі "AA1234AA" \n ${i}-го автомобіля`
+          )
+          arr.push(carsPlatesNumber)
+        }
+        return arr
+      }
+      //Виклик функції_1
+      let carsPlatesNumber = getCarsPlatesNumbers()
+      //Функція_2. Яка кількість починається на букву «А»
+      function getQuantityFirst_A(array) {
+        let counter = 0
+        for (let i = 0; i < array.length; i++) {
+          if (array[i][0] === "A" || array[i][0] === "А") counter++
+        }
+        return counter
+      }
+      //Виклик функції_2
+      let first_A = getQuantityFirst_A(carsPlatesNumber)
+      //Функція_2_1. Перша і остання літери співпадають
+      function getCoincidenceFirstLast(array) {
+        let counter = 0
+        let stringLength //ввожу змінну, щоб взнати номер останнього символа
+        for (let i = 0; i < array.length; i++) {
+          stringLength = array[i]["length"] - 1 //обчислюю цю змінну. -1, бо масив поч. з 0
+          if (array[i][0] === array[i][stringLength]) counter++
+          //або можна було написати такий кошмар
+          //if(array[i][0] === array[i][array[i]['length']-1]) counter++
+        }
+        return counter
+      }
+      //Виклик функції_2_1
+      let coincidenceFirstLast = getCoincidenceFirstLast(carsPlatesNumber)
+      //Функція_2_2. Cкладаються з більше ніш 5 символів
+      function getQuantityGreater_5_Symbols(array) {
+        let counter = 0
+        for (let i = 0; i < array.length; i++) {
+          if (array[i]["length"] > 5) counter++
+        }
+        return counter
+      }
+      //Виклик функції_2_2
+      let greater_5_symbols = getQuantityGreater_5_Symbols(carsPlatesNumber)
+      //Виведення результату
+      document.write(`Кількість номерів які:
+      <ul>
+  <li>починаються на букву «А»: ${first_A}</li>
+  <li>перша і остання літери співпадають: ${coincidenceFirstLast}</li>
+  <li>складаються з більше ніш 5 символів: ${greater_5_symbols}</li>`)
+    </script>
+  </body>
+</html>

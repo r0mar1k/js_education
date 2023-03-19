@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 3</h1>
+    <p>
+      Дано масив імен учнів. З’ясувати скільки разів зустрічається ім’я «Іван».
+    </p>
+    <script>
+      //Функція_1. Створення масиву з введених даних
+      function getStydentsNames() {
+        const quantityNames = parseInt(prompt("Введіть кількість учнів"))
+        let arr = []
+        for (let i = 1; i <= quantityNames; i++) {
+          const quantityVisitors = prompt(`Вкажіть ім'я ${i}-го учня`)
+          arr.push(quantityVisitors)
+        }
+        return arr
+      }
+      //Виклик функції_1
+      let stydentsNames = getStydentsNames()
+      //Функція_2. З’ясувати скільки разів зустрічається ім’я «Іван»
+      //перебираючи масив циклом, перевіряти чи Іван. Якщо так, то лічильник +1
+      function getNumberCoincidence(array) {
+        let counter = 0
+        for (let i = 0; i < array.length; i++) {
+          if (array[i] === "Іван") counter++
+        }
+        return counter
+      }
+      //Виклик функції_2
+      let numberCoincidence = getNumberCoincidence(stydentsNames)
+      //Виведення результату
+      document.write(`Ім'я «Іван» зустрічається ${numberCoincidence} разів`)
+    </script>
+  </body>
+</html>

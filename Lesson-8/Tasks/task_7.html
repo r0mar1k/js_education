@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 7</h1>
+    <p>
+      Дано послідовність платіжок протягом року. Знайти сумарну кількість грошей
+      за:
+    </p>
+    <ol>
+      <li>за весь рік;</li>
+      <li>у першій половині року;</li>
+      <li>у другій половині року;</li>
+      <li>за літо;</li>
+      <li>за ІІ квартал;</li>
+      <li>за парні місяці (з парними номерами);</li>
+      <li>за місяці, які є початковими у сезоні (весна, літо, осінь, зима).</li>
+    </ol>
+    <script>
+      //рік = 12
+      //Функція_1. Введення даних та створення масиву
+      function getPaymentList() {
+        let year = 12
+        let array = []
+        for (let i = 1; i <= year; i++) {
+          const getList = parseFloat(
+            prompt(`Введіть кількість грошей за ${i}й місяць`)
+          )
+          array.push(getList)
+        }
+        return array
+      }
+      //Виклик функції_1
+      let paymentList = getPaymentList()
+      //Функція_2. Створення універсальної функції для обчислення сум за різний період
+      function getSumOfSomePeriod(firstMonth, lastMonth, array) {
+        let sum = 0
+        for (let i = firstMonth; i <= lastMonth; i++) {
+          sum += array[i - 1]
+        }
+        return sum
+      }
+      //Виклик функції_2 за різними потребами
+      //Знайти сумарну кількість грошей за весь рік(12 місяців)
+      let sumOfYear = getSumOfSomePeriod(1, 12, paymentList)
+      //Знайти сумарну кількість грошей у першій половині року(1-6 місяців)
+      let sumOfFirstPartOfYear = getSumOfSomePeriod(1, 6, paymentList)
+      //Знайти сумарну кількість грошей у другій половині року(7-12 місяців)
+      let sumOfSecondPartOfYear = getSumOfSomePeriod(7, 12, paymentList)
+      //Знайти сумарну кількість грошей за літо(6-8 місяців)
+      let sumOfSummer = getSumOfSomePeriod(6, 8, paymentList)
+      //Знайти сумарну кількість грошей за ІІ квартал(4-6 місяців)
+      let sumOfIIQuarter = getSumOfSomePeriod(4, 6, paymentList)
+      //Функція_2_2. Знайти сумарну кількість грошей за парні місяці (з парними номерами)(%2===0)
+      function getSumOfCoupleNumbers(firstMonth, lastMonth, array) {
+        let sum = 0
+        for (let i = firstMonth; i <= lastMonth; i++) {
+          if (i % 2 === 0) sum += array[i - 1]
+        }
+        return sum
+      }
+      //Виклик функції_2_2
+      let sumOfCoupleNumbers = getSumOfCoupleNumbers(1, 12, paymentList)
+      //Функція_2_3.Знайти сумарну кількість грошей за місяці, які є початковими у сезоні (весна, літо, осінь, зима)
+      //[3,6,9,12]
+      function getSumOfFirstMonthInEachSeason(
+        firstMonth,
+        lastMonth,
+        array,
+        ...firstSeasonsMonths
+      ) {
+        let sum = 0
+        //let j = 0 // лічильник дня другого масиву
+        for (let i = firstMonth, j = 0; i <= lastMonth; i++) {
+          if (i === firstSeasonsMonths[j]) {
+            sum += array[i - 1]
+            j++
+          }
+        }
+        return sum
+      }
+      //Виклик функції_2_3
+      let sumOfFirstMonthInEachSeason = getSumOfFirstMonthInEachSeason(
+        1,
+        12,
+        paymentList,
+        3,
+        6,
+        9,
+        12
+      )
+      //Виведення результату
+      document.write(`<br>Знайдено сумарну кількість грошей за:<ol>
+  <li>весь рік: ${sumOfYear} грн</li>
+  <li>першу половину року: ${sumOfFirstPartOfYear} грн</li>
+  <li>другу половину року: ${sumOfSecondPartOfYear} грн</li>
+  <li>за літо: ${sumOfSummer} грн</li>
+  <li>за ІІ квартал: ${sumOfIIQuarter} грн</li>
+  <li>за парні місяці: ${sumOfCoupleNumbers} грн</li>
+  <li>за місяці, які є початковими у сезоні: ${sumOfFirstMonthInEachSeason} грн</li>
+  </ol>`)
+    </script>
+  </body>
+</html>

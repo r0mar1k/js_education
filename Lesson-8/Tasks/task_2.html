@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 2</h1>
+    <p>
+      Задача 2. Дано масив, який зберігає кількість відвідувачів магазину
+      протягом тижня. Вивести на екран:
+    </p>
+    <ul>
+      <li>
+        номери днів, протягом яких кількість відвідувачів була меншою за 20;
+      </li>
+      <li>номери днів, коли кількість відвідувачів була мінімальною;</li>
+      <li>номери днів, коли кількість відвідувачів була максимальною;</li>
+      <li>
+        загальну кількість клієнтів у робочі дні та окремо загальну кількість
+        днів на вихідних.
+      </li>
+    </ul>
+    <script>
+      //Тиждень(7) з кількістю відвідувачів
+      //Функція_1. Створення масиву з введених даних
+      function getWeeklyVisitors() {
+        let week = 7
+        let arr = []
+        for (let i = 1; i <= week; i++) {
+          const quantityVisitors = parseInt(
+            prompt(`Вкажіть к-ть відвідувачів в день ${i}`)
+          )
+          arr.push(quantityVisitors)
+        }
+        return arr
+      }
+      //Виклик функції_1
+      let weeklyVisitors = getWeeklyVisitors()
+      //Функція_2. Створення масиву з номерами днів, коли кількість відвідувачів була меншою за 20;
+      //якшо в ячейці масиву число більше 20, то добавити номер ячейки в новий масив
+      function getNumberDaysWhereVisitorsLower20(array) {
+        let arr = []
+        for (let i = 0; i < array.length; i++) {
+          if (array[i] < 20) arr.push(i + 1) // +1 бо дні рахуються з 1
+        }
+        return arr
+      }
+      //Виклик функції_2
+      let daysWhereVisitorsLower20 =
+        getNumberDaysWhereVisitorsLower20(weeklyVisitors)
+      //Функція_2_1. Створення масиву з номерами днів, коли кількість відвідувачів була мінімальною;
+      function getNumberDaysWhereVisitorsMin(array) {
+        let arr = []
+        let minNumber = Math.min(...array)
+        for (let i = 0; i < array.length; i++) {
+          if (array[i] === minNumber) arr.push(i + 1)
+        }
+        return arr
+      }
+      //Виклик функції_2_1
+      let daysWhereVisitorsMin = getNumberDaysWhereVisitorsMin(weeklyVisitors)
+      //Функція_2_2. Створення масиву з номерами днів, коли кількість відвідувачів була максимальною;
+      function getNumberDaysWhereVisitorsMax(array) {
+        let arr = []
+        let maxNumber = Math.max(...array)
+        for (let i = 0; i < array.length; i++) {
+          if (array[i] === maxNumber) arr.push(i + 1)
+        }
+        return arr
+      }
+      //Виклик функції_2_2
+      let daysWhereVisitorsMax = getNumberDaysWhereVisitorsMax(weeklyVisitors)
+      //Функція_2_3. Визначення загальну кількість клієнтів у робочі дні та окремо загальну кількість клієнтів на вихідних.
+      function getSumVisitorsSeparately_Work_or_Free(
+        d1,
+        d2,
+        d3,
+        d4,
+        d5,
+        d6,
+        d7
+      ) {
+        let sumVisitorsWorkingDay = d1 + d2 + d3 + d4 + d5
+        let sumVisitorsFreeDay = d6 + d7
+        return [sumVisitorsWorkingDay, sumVisitorsFreeDay]
+      }
+      //================Ще один варіант ф-ї_2_3==============
+      // function sumVisitorsSeparately_Work_or_Free(array) {
+      //   let sumWorkingDay = 0
+      //   let sumFreeDay = 0
+      //   for (let i = 0; i < array.length; i++) {
+      //          let result =
+      //       array[i] == (5 || 6) //6||7 бо дні рахуються з 1 і в масиві немає 7
+      //         ? (sumFreeDay += array[i])
+      //         : (sumWorkingDay += array[i])
+      //   }
+      //   return [sumWorkingDay, sumFreeDay]
+      // }
+      //===================================================
+      //Виклик функції_2_3
+      let sumVisitorsSeparately_Work_or_Free =
+        getSumVisitorsSeparately_Work_or_Free(...weeklyVisitors)
+      //Виведення результату
+      document.write(`<ul><li>Номери днів, протягом яких кількість відвідувачів була меншою за 20: ${daysWhereVisitorsLower20}</li>
+  <li>Номер дня, коли кількість відвідувачів була мінімальною: ${daysWhereVisitorsMin}</li>
+  <li>Номер дня, коли кількість відвідувачів була максимальною: ${daysWhereVisitorsMax}</li>
+  <li>Загальну кількість клієнтів у робочі дні: ${sumVisitorsSeparately_Work_or_Free[0]}</li>
+  <li>Загальну кількість клієнтів на вихідних: ${sumVisitorsSeparately_Work_or_Free[1]}</li> `)
+    </script>
+  </body>
+</html>
