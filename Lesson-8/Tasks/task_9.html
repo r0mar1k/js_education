@@ -38,19 +38,47 @@
           } else if (randomNumber === 0 && counter_0 < quantityNulls) {
             array.push(randomNumber)
             counter_0++
-          } else if (randomNumber === 0 && counter_0 >= quantityNulls)
-            array.push(1)
+          } else if (counter_0 >= quantityNulls) array.push(1)
           else array.push(0)
         }
         return array
       }
+      //=========================Ще 1 варіант==================================
+      // //1.Створюється масив, заповнений нулями(0)
+      //       function getArrayWith0(cellsNumber) {
+      //         let array = []
+      //         for (let i = 0; i < cellsNumber; i++) array.push(0)
+      //         return array
+      //       }
+      //       let arrayWith0 = getArrayWith0(cellsNumber)
+      //       //2.Заповнюємо масив одиницями(1)
+      //       function getFilledArray(shipsNumber, array) {
+      //         const minNumber = 0
+      //         const maxNumber = array.length - 1
+      //         for (let i = 0; i < shipsNumber; ) {
+      //           const randomNumber =
+      //             minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+      //           if (array[randomNumber] === 1) {
+      //             array[randomNumber] = 0
+      //             i--
+      //           } else {
+      //             array[randomNumber] = 1
+      //             i++
+      //           }
+      //         }
+      //         return array
+      //       }
+      //       let array = getFilledArray(shipsNumber, arrayWith0)
+      //=======================================================================================
       //Виклик функції_1
       let array = getArray(cellsNumber, shipsNumber)
       //Функція_2. Обчислення та виведення результату
       //Користувач вводить номер клітинки, куди стріляє. Гра продовжується до тих пір, поки не будуть потоплені усі кораблі.
+
       function resultOfGame(cellsNumber, shipsNumber, array) {
         let result
         let counter = shipsNumber //лічильник кількості потоплених кораблів
+        alert("Починаємо бій!")
         while (counter !== 0) {
           const number = parseInt(
             prompt(`Введіть номер клітинки від 1 до ${cellsNumber}`)
@@ -58,7 +86,7 @@
           if (array[number - 1] === 1) {
             array[number - 1] = 0
             counter--
-            alert(`Втонув! Залишилось ${counter}. Наступний постріл`)
+            alert(`Втонув! Залишилось ${counter}`)
           } else alert("Мимо")
         }
         document.write("Вітаємо! Усі кораблі потоплені")
