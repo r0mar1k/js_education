@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 8</h1>
+    <p>
+      Дано масив номерів авто. Сформувати новий масив тих, які починаються на
+      «А»
+    </p>
+    <script>
+      let createArray = () => {
+        let usersCarsNumbers
+        let arr = []
+        do {
+          usersCarsNumbers = prompt('Вводьте номери у форматі "AA1234AA"')
+          arr.push(usersCarsNumbers)
+        } while (usersCarsNumbers !== null)
+        arr.length = arr.length - 1 //зменшення масиву на 1, бо при скасуванні чи Esc в кінці null
+        return arr
+      }
+      let array = createArray()
+      //forEach
+      // function newArray(array) {
+      //   let newArray = []
+      //   array.forEach((element) => {
+      //     if (element[0] === "A" || element[0] === "А") newArray.push(element)
+      //   })
+      //   return newArray
+      // }
+      // document.write(`[${newArray(array)}]`)
+      //filter
+      let newArray = array.filter(
+        (element) => element[0] === "A" || element[0] === "А"
+      )
+      document.write(`[${newArray}]`)
+    </script>
+  </body>
+</html>

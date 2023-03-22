@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 7</h1>
+    <p>
+      Дано масив цін. Змінити цей масив так, що на ціни товарів, які більші за
+      1000 грн. дати 30% знижки.
+    </p>
+    <script>
+      let createArray = () => {
+        let usersPrices
+        let arr = []
+        do {
+          usersPrices = parseFloat(prompt("Вводьте ціни"))
+          arr.push(usersPrices)
+        } while (isFinite(usersPrices))
+        arr.length = arr.length - 1 //зменшення масиву на 1, бо при скасуванні чи Esc в кінці NaN
+        return arr
+      }
+      let array = createArray()
+      let startDiscountPrice = 1000
+      let discount = 0.7 //знижка на 30%
+      array.forEach((element, index, baseArrRef) => {
+        if (element >= startDiscountPrice) baseArrRef[index] *= discount
+      })
+      document.write(`[${array}]`)
+    </script>
+  </body>
+</html>

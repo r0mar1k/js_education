@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 9</h1>
+    <p>Дано масив імен. Сформувати масив з перших літер цих імен.</p>
+    <script>
+      let createArray = () => {
+        let usersNames
+        let arr = []
+        do {
+          usersNames = prompt("Введіть ім`я")
+          arr.push(usersNames)
+        } while (usersNames !== null)
+        arr.length = arr.length - 1 //зменшення масиву на 1, бо при скасуванні чи Esc в кінці null
+        return arr
+      }
+      let array = createArray()
+      //forEach
+      // function newArray(array) {
+      //   let newArray = []
+      //   array.forEach((element) => {
+      //     let firstSumbol = element[0]
+      //     newArray.push(firstSumbol)
+      //   })
+      //   return newArray
+      // }
+      // document.write(`[${newArray(array)}]`)
+      //map
+      let newArray = array.map((element) => (element = element[0]))
+      document.write(`[${newArray}]`)
+    </script>
+  </body>
+</html>

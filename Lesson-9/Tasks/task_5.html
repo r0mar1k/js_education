@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 5</h1>
+    <p>Дано масив елементів. Знайти добуток додатних елементів</p>
+    <script>
+      let createArray = () => {
+        let usersNumbers
+        let arr = []
+        do {
+          usersNumbers = parseFloat(prompt("Вводьте числа"))
+          arr.push(usersNumbers)
+        } while (isFinite(usersNumbers))
+        arr.length = arr.length - 1 //зменшення масиву на 1, бо при скасуванні чи Esc в кінці NaN
+        return arr
+      }
+      let resultMult = (array) => {
+        let result = 1 // 1, бо буде множення
+        for (const element of array) {
+          if (element > 0) result *= element
+        }
+        return result
+      }
+      document.write(resultMult(createArray()).toFixed(2))
+    </script>
+  </body>
+</html>

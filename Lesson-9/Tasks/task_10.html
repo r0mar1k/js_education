@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 10</h1>
+    <p>
+      Дано масив цін у грн. Податок складає 20%. Сформувати масив, який буде
+      містити величину сплаченого податку у грн.
+    </p>
+    <script>
+      let createArray = () => {
+        let usersPrices
+        let arr = []
+        do {
+          usersPrices = parseFloat(prompt("Вводьте ціни"))
+          arr.push(usersPrices)
+        } while (isFinite(usersPrices))
+        arr.length = arr.length - 1 //зменшення масиву на 1, бо при скасуванні чи Esc в кінці NaN
+        return arr
+      }
+      let array = createArray()
+      function newArrayIncludeTax(array) {
+        let tax = 0.2 // 20%
+        let newArray = array.map((element) => element * tax)
+        return newArray
+      }
+      document.write(`[${newArrayIncludeTax(array)}]`)
+    </script>
+  </body>
+</html>
