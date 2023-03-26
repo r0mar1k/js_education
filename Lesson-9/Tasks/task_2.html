@@ -14,7 +14,7 @@
     <script>
       const usersNumber = parseInt(prompt("Введіть кількість елементів"))
       let half = Math.floor(usersNumber / 2)
-      let arr = new Array(usersNumber).fill(1)
+      let arr = new Array(usersNumber).fill(1, 0, half)
       arr.fill(7, half)
       document.write(`[${arr}]`)
     </script>
