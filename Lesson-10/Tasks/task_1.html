@@ -77,7 +77,7 @@
       //3.Сформувати список з тих цін, які більші за попереднє значення
       const greaterThanPrevValue = historyPricesArray.filter(
         (element, index, array) =>
-          index !== 0 || array[index] > array[index - 1]
+          index !== 0 && array[index] > array[index - 1]
       )
       //4.Сформувати новий масив, що міститиме значення цін у відсотках стосовно максимального
       //Максимальне за допомогою Math
@@ -90,22 +90,25 @@
         Math.round((element * 100) / maxElement)
       )
       //5.Підрахувати кількість змін цін
+      //Цикл for
+      // let countChangePrices = 0
+      // for (let i = 1; i < historyPricesArray.length; i++) {
+      //   if (array[index] !== array[index - 1])
+      //       countChangePrices++
+      // }
+      //reduce
       const countChangePrices = historyPricesArray.reduce(
         (counter, currentValue, index, array) => {
-          if (
-            index !== 0 ||
-            array[index] > array[index - 1] ||
-            array[index] < array[index - 1]
-          )
-            ++counter
+          if (index !== 0 && array[index] !== array[index - 1]) ++counter
           return counter
         },
         0
       )
       //6.Визначити, чи є ціна, що менше 1000
-      const isPriceLower1000 = historyPricesArray.some(
-        (element) => element < 1000
-      )
+      let isPriceLower1000 = ""
+      if (historyPricesArray.some((element) => element < 1000))
+        isPriceLower1000 = "Є"
+      else isPriceLower1000 = "Немає"
       //7.Визначати, чи усі ціни більше за 1000
       const isAllPricesGreaterThan1000 = historyPricesArray.every(
         (element) => element > 1000
@@ -118,7 +121,7 @@
       )
       //9.Підрахувати суму цін, що більше за 1000
       const sumGreaterThan1000 = historyPricesArray.reduce(
-        (prevSum, element) => (prevSum += element),
+        (prevSum, element) => prevSum + element,
         0
       )
       //10.Знайти першу ціну, що більше за 1000
