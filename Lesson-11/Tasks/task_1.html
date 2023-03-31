@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 1</h1>
+    <p>Знайти суми елементів у вказаній області</p>
+    <img src="./img/task1.png" alt="p" />
+    <p>5&rpar; Суму парних рядків</p>
+    <p>6&rpar; Суму непарних стовпців</p>
+    <p>7&rpar; У парних рядках – непарні стовпці, у непарних – парні.</p>
+    <script>
+      //Функція генерації рандомного числа
+      function getRandomNumber(min, max) {
+        return min + Math.floor(Math.random() * (max - min + 1))
+      }
+      //Функція генерації двовимірного масиву 4x4
+      function getTwoDimensionalArray(rowLength, columnLength) {
+        let array = new Array(rowLength)
+        for (let row = 0; row < array.length; row++) {
+          array[row] = new Array()
+          for (let column = 0; column < columnLength; column++) {
+            array[row].push(getRandomNumber(1, 10))
+          }
+        }
+        return array
+      }
+      const array = getTwoDimensionalArray(4, 4)
+      //1, 2, 3, 4
+      function getSumFromQuarterArea(startRow, startColumn, array) {
+        let sum = 0
+        const endRow = startRow + array.length / 2
+        const endColumn = startColumn + array[0].length / 2
+        for (let row = startRow; row < endRow; row++) {
+          for (let column = startColumn; column < endColumn; column++) {
+            sum += array[row][column]
+          }
+        }
+        return sum
+      }
+      const halfRowNumber = Math.floor(array.length / 2)
+      const halfColumnNumber = Math.floor(array[0].length / 2)
+      let sumQuarter_1_4 = getSumFromQuarterArea(0, 0, array)
+      let sumQuarter_2_4 = getSumFromQuarterArea(0, halfColumnNumber, array)
+      let sumQuarter_3_4 = getSumFromQuarterArea(halfRowNumber, 0, array)
+      let sumQuarter_4_4 = getSumFromQuarterArea(
+        halfRowNumber,
+        halfColumnNumber,
+        array
+      )
+      //5. Суму парних рядків
+      let sumPairRow = 0
+      for (let rowNumber = 0; rowNumber < array.length; rowNumber += 2) {
+        for (
+          let columnNumber = 0;
+          columnNumber < array[rowNumber].length;
+          columnNumber++
+        )
+          sumPairRow += array[rowNumber][columnNumber]
+      }
+
+      //6. Суму непарних стовпців
+      let sumUnPairColumn = 0
+      for (let rowNumber = 0; rowNumber < array.length; rowNumber++) {
+        for (
+          let columnNumber = 1;
+          columnNumber < array[rowNumber].length;
+          columnNumber += 2
+        )
+          sumUnPairColumn += array[rowNumber][columnNumber]
+      }
+      //7. У парних рядках – непарні стовпці, у непарних – парні.
+      let sumPair_UnPair = 0
+      for (let rowNumber = 0; rowNumber < array.length; rowNumber++) {
+        for (
+          let columnNumber = 1 - (rowNumber % 2);
+          columnNumber < array[rowNumber].length;
+          columnNumber += 2
+        ) {
+          sumPair_UnPair += array[rowNumber][columnNumber]
+        }
+      }
+      //Виведення результату
+      console.log(array)
+      console.log(`1)Сума в 1-й області = ${sumQuarter_1_4}`)
+      console.log(`2)Сума в 2-й області = ${sumQuarter_2_4}`)
+      console.log(`3)Сума в 3-й області = ${sumQuarter_3_4}`)
+      console.log(`4)Сума в 4-й області = ${sumQuarter_4_4}`)
+      console.log(`5)Сума парних рядків = ${sumPairRow}`)
+      console.log(`6)Суму непарних стовпців = ${sumUnPairColumn}`)
+      console.log(
+        `7)Сума у парних рядках – непарних стовпцях, у непарних рядках – парних стовпцях = ${sumPair_UnPair}`
+      )
+      const copyArr = JSON.parse(JSON.stringify(array))
+    </script>
+  </body>
+</html>
