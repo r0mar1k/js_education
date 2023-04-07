@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 3</h1>
+    <p>
+      З використанням замикань розробити ітератор, тобто функцію, що буде
+      поступово за окремими викликами видавати по одне значення від заданого
+      мінімального до заданого максимального. Якщо значення досягне
+      максимального, то наступним буде мінімальне значення. З використанням цієї
+      функції реалізувати перебір номерів місяців.
+    </p>
+    <script>
+      function counter(minValue, maxValue) {
+        let counter = minValue - 1
+        function getNextValue() {
+          counter++
+          if (counter > maxValue) counter = minValue
+          return counter
+        }
+        return getNextValue
+      }
+      let nextMonth = counter(1, 12)
+      const monthNumber = parseInt(
+        prompt("Вкажіть к-ть місяців для відображення")
+      )
+      for (let i = 0; i < monthNumber; i++) {
+        // document.write(`${nextMonth()}<br>`)
+        let result
+        switch (nextMonth()) {
+          case 1:
+            result = "Січень"
+            break
+          case 2:
+            result = "Лютий"
+            break
+          case 3:
+            result = "Березень"
+            break
+          case 4:
+            result = "Квітень"
+            break
+          case 5:
+            result = "Травень"
+            break
+          case 6:
+            result = "Червень"
+            break
+          case 7:
+            result = "Липень"
+            break
+          case 8:
+            result = "Серпень"
+            break
+          case 9:
+            result = "Вересень"
+            break
+          case 10:
+            result = "Жовтень"
+            break
+          case 11:
+            result = "Листопад"
+            break
+          case 12:
+            result = "Грудень"
+            break
+        }
+        document.write(`${result}<br>`)
+      }
+    </script>
+  </body>
+</html>

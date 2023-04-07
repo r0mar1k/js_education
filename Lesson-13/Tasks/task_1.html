@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 1</h1>
+    <img src="./img/task1.png" alt="task_1" />
+    <script>
+      const numberXn = 10
+      //нерекурсивний метод
+      function unknownByNonRecurse(xn) {
+        if (xn === 0) return 1
+        else {
+          let xn_0 = 1
+          let x_n
+          for (let i = 1; i <= xn; i++) {
+            x_n = xn_0 + 2 * i
+            xn_0 = x_n
+          }
+          return x_n
+        }
+      }
+      let resultNonRecurse = unknownByNonRecurse(numberXn)
+      //рекурсивний метод
+      function unknownByRecurse(xn) {
+        if (xn === 0) {
+          return 1
+        } else {
+          return unknownByRecurse(xn - 1) + 2 * xn
+        }
+      }
+      let resultRecurse = unknownByRecurse(numberXn)
+      //x0 = 1
+      //x1 = 1+2 = 3
+      //x2 = 3+2*2 = 7
+      //x3 = 7+2*3 = 13
+      //x4 = 13+2*4= 21
+      document.write(
+        `<br>Нерекурсивний алгоритм обчисленя:<br>X(${numberXn}) = ${resultNonRecurse}<br>`
+      )
+      document.write(
+        `Рекурсивний алгоритм обчисленя:<br>X(${numberXn}) = ${resultRecurse}<br>`
+      )
+    </script>
+  </body>
+</html>

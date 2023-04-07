@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 2</h1>
+    <p>
+      Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під
+      час сортування змішуванням.
+    </p>
+    <script>
+      //Робимо одновимірний масив
+      function getArray(elementsNumber, minNumber, maxNumber) {
+        let array = []
+        for (let i = 0; i < elementsNumber; i++) {
+          const randomNumber =
+            minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+          array.push(randomNumber)
+        }
+        return array
+      }
+      const array = getArray(30, 0, 50)
+
+      //Алгоритм сортування змішуванням
+      //1-й етап. Бере елемент і переносить його з початку в кінець, поки не він не буде менший за наступний(якщо ел. > за наст., то поміняти місцями)
+      //2-й етап. Бере елемент і переносить його з кінця в початок, поки не він не буде менший за попередній(якщо ел. < за наст., то поміняти місцями)
+      //Функція заміни 2-х елементів в масиві
+      function swap(arr, index1, index2) {
+        let temp = arr[index1]
+        arr[index1] = arr[index2]
+        arr[index2] = temp
+      }
+
+      let arr = JSON.parse(JSON.stringify(array)) //копія масиву для наглядності
+      let counter = 0 //лічильник кількості обмінів
+      let startIndex = 0
+      let endIndex = arr.length - 1
+      while (startIndex < endIndex) {
+        for (let i = startIndex; i < endIndex; i++) {
+          if (arr[i] > arr[i + 1]) {
+            swap(arr, i, i + 1)
+            counter++
+          }
+        }
+        endIndex--
+        for (let i = endIndex; i > startIndex; i--) {
+          if (arr[i] < arr[i - 1]) {
+            swap(arr, i, i - 1)
+            counter++
+          }
+        }
+        startIndex++
+      }
+      console.log("Не сортований масив")
+      console.log(array)
+      console.log(`Cортований масив. Кількість обмінів ${counter}`)
+      console.log(arr)
+      document.write("<h3>Результат в консолі</h3>")
+    </script>
+  </body>
+</html>

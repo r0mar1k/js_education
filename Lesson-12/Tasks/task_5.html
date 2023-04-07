@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 5</h1>
+    <p>
+      Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук
+      визначити, чи є у масиві ім’я «Olga» і під яким індексом.
+    </p>
+    <script>
+      let array = [
+        "Bill",
+        "Arnold",
+        "John",
+        "Peter",
+        "Stefan",
+        "Jim",
+        "Sara",
+        "Olga",
+        "Maria",
+        "Macaulay",
+      ]
+      //Алгоритм сортування бульбашкою
+      function doBubbleSort(arr) {
+        let changed
+        do {
+          changed = false
+          for (let i = 1; i < arr.length; i++) {
+            if (arr[i - 1] > arr[i]) {
+              let temp = arr[i - 1]
+              arr[i - 1] = arr[i]
+              arr[i] = temp
+              changed = true
+            }
+          }
+        } while (changed === true)
+      }
+      let bubbleSort = doBubbleSort(array)
+      //Бінарний пошук
+      function binarySearch(array, searchElement) {
+        let startIndex = 0
+        let endIndex = array.length - 1
+        while (startIndex <= endIndex) {
+          const middle = Math.floor((startIndex + endIndex) / 2)
+          if (array[middle] === searchElement) return middle
+          if (array[middle] < searchElement) startIndex = middle + 1
+          if (array[middle] > searchElement) endIndex = middle - 1
+        }
+        return -1
+      }
+      const searchElement = "Olga"
+      let isSomeElementInArray = binarySearch(array, searchElement)
+      //Виведення
+      console.log(array)
+      if (isSomeElementInArray === -1)
+        console.log(`Такого ім'я немає в даному масиві`)
+      else
+        console.log(
+          `І'мя ${searchElement} є в даному масиві під індексом ${isSomeElementInArray}`
+        )
+      document.write("<h3>Результат в консолі</h3>")
+    </script>
+  </body>
+</html>

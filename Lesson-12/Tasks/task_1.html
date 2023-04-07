@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 1</h1>
+    <p>
+      Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під
+      час сортування бульбашкою.
+    </p>
+    <script>
+      //Робимо одновимірний масив
+      function getArray(elementsNumber, minNumber, maxNumber) {
+        let array = []
+        for (let i = 0; i < elementsNumber; i++) {
+          const randomNumber =
+            minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+          array.push(randomNumber)
+        }
+        return array
+      }
+      const array = getArray(30, 0, 50)
+
+      let arr = JSON.parse(JSON.stringify(array)) //копія масиву для наглядності
+      let counter = 0 //лічильник кількості обмінів
+      //Алгоритм сортування бульбашкою
+      let changed
+      do {
+        changed = false
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i - 1] > arr[i]) {
+            let temp = arr[i - 1]
+            arr[i - 1] = arr[i]
+            arr[i] = temp
+            changed = true
+            counter++
+          }
+        }
+      } while (changed === true)
+
+      console.log("Не сортований масив")
+      console.log(array)
+      console.log(`Cортований масив. Кількість обмінів ${counter}`)
+      console.log(arr)
+      document.write("<h3>Результат в консолі</h3>")
+    </script>
+  </body>
+</html>

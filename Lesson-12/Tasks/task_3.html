@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 3</h1>
+    <p>
+      Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під
+      час сортування включеннями.
+    </p>
+    <script>
+      //Робимо одновимірний масив
+      function getArray(elementsNumber, minNumber, maxNumber) {
+        let array = []
+        for (let i = 0; i < elementsNumber; i++) {
+          const randomNumber =
+            minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+          array.push(randomNumber)
+        }
+        return array
+      }
+      const array = getArray(30, 0, 50)
+
+      //Алгоритм сортування включеннями
+      let arr = JSON.parse(JSON.stringify(array)) //копія масиву для наглядності
+      let counter = 0 //лічильник кількості кроків
+      for (let k = 1; k < arr.length; k++) {
+        let currentElement = arr[k] //currentElement- це елемент який ми розглядаємо.
+        let i = k - 1 //0,1,2,3...
+        while (i >= 0 && arr[i] > currentElement) {
+          //arr[i]- з цим елементом будемо порівнювати
+          arr[i + 1] = arr[i] // якщо arr[i] >currentPosition, то currentPosition зміщуємо на 1 позицію право
+          i = i - 1 //перехід до попер. ел. поки i>=0. Індекс поступово зменшується, бо рухаємось з права на ліво
+          counter++
+        }
+        arr[i + 1] = currentElement // якщо arr[i] !> currentPosition, то стаємо на 1 позицію вправо(після currentPosition)
+      }
+      console.log("Не сортований масив")
+      console.log(array)
+      console.log(`Cортований масив. \nКількість обмінів ${counter}`)
+      console.log(arr)
+      document.write("<h3>Результат в консолі</h3>")
+    </script>
+  </body>
+</html>

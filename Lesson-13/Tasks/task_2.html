@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 2</h1>
+    <img src="./img/task2.png" alt="task_2" />
+    <script>
+      const numberXn = parseInt(
+        prompt("Введіть значення `n` для визначення `Xn`", "5")
+      )
+      //нерекурсивний метод
+      function unknownByNonRecurse(xn) {
+        if (xn === 0 || xn === 1) return 1
+        else {
+          let xn_1 = (xn_2 = 1)
+          let x_n
+          for (let i = 2; i <= xn; i++) {
+            x_n = xn_2 + xn_1 * 2
+            xn_1 = xn_2
+            xn_2 = x_n
+          }
+          return x_n
+        }
+      }
+      let resultNonRecurse = unknownByNonRecurse(numberXn)
+      //рекурсивний метод
+      function unknownByRecurse(xn) {
+        if (xn === 0 || xn === 1) return 1
+        else return unknownByRecurse(xn - 1) + unknownByRecurse(xn - 2) * 2
+      }
+      let resultRecurse = unknownByRecurse(numberXn)
+      //xn0 = 1
+      //xn1 = 1
+      //xn2 = 1+2*1 = 3
+      //xn3 = 3 + 2*1 = 5
+      //xn4 = 5 + 2*3 = 11
+      document.write(
+        `<br>Нерекурсивний алгоритм обчисленя:<br>X(${numberXn}) = ${resultNonRecurse}<br>`
+      )
+      document.write(
+        `Рекурсивний алгоритм обчисленя:<br>X(${numberXn}) = ${resultRecurse}<br>`
+      )
+    </script>
+  </body>
+</html>
