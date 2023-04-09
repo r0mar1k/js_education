@@ -58,6 +58,11 @@
       const WEEK = 7
       const array = getTwoDimensionalArray(shopsNumber, WEEK)
       //1.Загальний прибуток кожного масиву за тиждень;
+      //-----1-----
+      // const incomeTotalPerWeek = array.map((row) =>
+      //   row.reduce((prevSum, elem) => prevSum + elem)
+      // )
+      //-----2-----
       function getIncomeTotalPerWeek(array) {
         let sum = 0
         let totalIncomeArray = []
@@ -71,6 +76,7 @@
         return totalIncomeArray
       }
       const incomeTotalPerWeek = getIncomeTotalPerWeek(array)
+
       //2. Загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.);
       function getIncomeTotalPerDay(array) {
         let sum = 0
@@ -100,15 +106,23 @@
       //4. Загальний прибуток за вихідні дні;(6-7)
       let incomeTotalFreeDays = getIncomeTotalFormSomeDays(array, 6, 7)
       //5. Максимальний прибуток за середу; (cереда в масиві - 2 колонка)
+      // function getMaxIncomeFromWednesdays(array, dayNumber) {
+      //   let incomesFromSomeDay = []
+      //   for (let row = 0, column = dayNumber; row < array.length; row++) {
+      //     incomesFromSomeDay.push(array[row][column])
+      //   }
+      //   const maxIncomeFromSomeDay = incomesFromSomeDay.reduce(
+      //     (prevMax, currentValue) =>
+      //       prevMax < currentValue ? currentValue : prevMax
+      //   )
+      //   return maxIncomeFromSomeDay
+      // }
       function getMaxIncomeFromWednesdays(array, dayNumber) {
-        let incomesFromSomeDay = []
+        let maxIncomeFromSomeDay = array[0][dayNumber]
         for (let row = 0, column = dayNumber; row < array.length; row++) {
-          incomesFromSomeDay.push(array[row][column])
+          if (array[row][column] > maxIncomeFromSomeDay)
+            maxIncomeFromSomeDay = array[row][column]
         }
-        const maxIncomeFromSomeDay = incomesFromSomeDay.reduce(
-          (prevMax, currentValue) =>
-            prevMax < currentValue ? currentValue : prevMax
-        )
         return maxIncomeFromSomeDay
       }
       let maxWednesdeysIncome = getMaxIncomeFromWednesdays(array, 2)
@@ -138,29 +152,92 @@
       }
       let sortWeekFromLowToTop = getArrayWithSortElemFromLowToTop(array)
       //8. Відсортувати тижні (рядки) за спаданням максимального елементи у цьому тижні (рядку), тобто при порівнянні рядків потрібно порівнювати максимальні елементи у кожному з цих рядків
-      // function getArrayWithSortElemFromTopToLow(array) {
+      //-----1----
+      // function getSortArrayFromTopToLowByMaxElem(array) {
       //   let copyArray = JSON.parse(JSON.stringify(array))
       //   return copyArray.sort((el1, el2) => Math.max(...el2) - Math.max(...el1))
       // }
-      // let sortWeekFromTopToLow = getArrayWithSortElemFromTopToLow(array)
-      //==========================
-      function getArrayWithSortElemFromTopToLow(array) {
-        let newArray = JSON.parse(JSON.stringify(array))
-        return newArray.sort((el1, el2) => Math.max(...el2) - Math.max(...el1))
+      // let sortWeekFromTopToLowByMaxElem = getSortArrayFromTopToLowByMaxElem(array)
+      //-----2----
+      // function getSortArrayFromTopToLowByMaxElem(array) {
+      //   let newArray = JSON.parse(JSON.stringify(array))
+      //   return newArray.sort((el1, el2) => Math.max(...el2) - Math.max(...el1))
+      // }
+      //-----3----
+      let arrayWithMaxValues = array.map((row) =>
+        row.reduce((prevMax, elem) => (prevMax > elem ? prevMax : elem))
+      )
+      //або
+      //= array.map((row) => Math.max(...row))
+      //-------------
+      //сортуємо масив максимальних значень синхронно з основним масивом, оскільки індекси співпадають
+      function getSortArrayFromTopToLowByMaxElem(mainArray, arrayWithMax) {
+        let copyMainArray = JSON.parse(JSON.stringify(mainArray))
+        let preLastIndex = arrayWithMax.length - 1
+        for (let i = 0; i < preLastIndex; i++) {
+          let currentMinIndex = i
+          for (let j = i + 1; j < arrayWithMax.length; j++) {
+            if (arrayWithMax[j] > arrayWithMax[currentMinIndex])
+              currentMinIndex = j
+          }
+          //сортуємо масив з максимальними значеннями
+          if (i !== currentMinIndex) {
+            let tmp = arrayWithMax[i]
+            arrayWithMax[i] = arrayWithMax[currentMinIndex]
+            arrayWithMax[currentMinIndex] = tmp
+            //сортуємо основний масив
+            tmp = copyMainArray[i]
+            copyMainArray[i] = copyMainArray[currentMinIndex]
+            copyMainArray[currentMinIndex] = tmp
+          }
+        }
+        return copyMainArray
       }
-      let sortWeekFromTopToLow =
-        getArrayWithSortElemFromTopToLow(sortWeekFromLowToTop) //передаю попередньо сортований масив в п.7
+      //передаю попередньо відсортований масив в п.7(за зростанням)
+      let sortWeekFromTopToLowByMaxElem = getSortArrayFromTopToLowByMaxElem(
+        sortWeekFromLowToTop,
+        arrayWithMaxValues
+      )
       //9. упорядкувати тижні (рядки) за спаданням суми елементів у рядку (тобто при порівнянні двох рядків треба знайти суму кожного з рядків і порівнювати ці суми, на основі цих сум буде зрозуміло, який з елементів повинен іти раніше).
-      function getArrayWithSortRowsFromTopToLow(array) {
-        let copyArray = JSON.parse(JSON.stringify(array))
-        return copyArray.sort(
-          (el1, el2) =>
-            el2.reduce((prevSum, elem) => prevSum + elem) -
-            el1.reduce((prevSum, elem) => prevSum + elem)
-        )
+      //------1------
+      // function getArrayWithSortRowsFromTopToLow(array) {
+      //   let copyArray = JSON.parse(JSON.stringify(array))
+      //   return copyArray.sort(
+      //     (el1, el2) =>
+      //       el2.reduce((prevSum, elem) => prevSum + elem) -
+      //       el1.reduce((prevSum, elem) => prevSum + elem)
+      //   )
+      // }
+      //-----2------
+      function getArrayWithSortWeeksFromTopToLowBySumElem(
+        mainArray,
+        arrayWithSum
+      ) {
+        let copyMainArray = JSON.parse(JSON.stringify(mainArray))
+        let copyArrayWithSum = JSON.parse(JSON.stringify(arrayWithSum))
+        let preLastIndex = copyArrayWithSum.length - 1
+        for (let i = 0; i < preLastIndex; i++) {
+          let currentMinIndex = i
+          for (let j = i + 1; j < copyArrayWithSum.length; j++) {
+            if (copyArrayWithSum[j] > copyArrayWithSum[currentMinIndex])
+              currentMinIndex = j
+          }
+          //сортуємо масив з сумами
+          if (i !== currentMinIndex) {
+            let tmp = copyArrayWithSum[i]
+            copyArrayWithSum[i] = copyArrayWithSum[currentMinIndex]
+            copyArrayWithSum[currentMinIndex] = tmp
+            //сортуємо основний масив
+            tmp = copyMainArray[i]
+            copyMainArray[i] = copyMainArray[currentMinIndex]
+            copyMainArray[currentMinIndex] = tmp
+          }
+        }
+        return copyMainArray
       }
+      //передаю попередньо створений масив в п.1(суми за кожен тиждень)
       let sortWeeksFromTopToLowBySumElem =
-        getArrayWithSortRowsFromTopToLow(array)
+        getArrayWithSortWeeksFromTopToLowBySumElem(array, incomeTotalPerWeek)
       //Виведення результату
       console.log(array)
       console.log(`1) Загальний прибуток кожного масиву за тиждень`)
@@ -181,7 +258,7 @@
       console.log(
         `8) Відсортувати рядки за спаданням максимального елементи у цьому рядку`
       )
-      console.log(sortWeekFromTopToLow)
+      console.log(sortWeekFromTopToLowByMaxElem)
       console.log(`9) Упорядкувати рядки за спаданням суми елементів у рядку`)
       console.log(sortWeeksFromTopToLowBySumElem)
     </script>

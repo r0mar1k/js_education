@@ -32,8 +32,8 @@
       //1, 2, 3, 4
       function getSumFromQuarterArea(startRow, startColumn, array) {
         let sum = 0
-        const endRow = startRow + array.length / 2
-        const endColumn = startColumn + array[0].length / 2
+        const endRow = Math.ceil(startRow + array.length / 2)
+        const endColumn = Math.ceil(startColumn + array[0].length / 2)
         for (let row = startRow; row < endRow; row++) {
           for (let column = startColumn; column < endColumn; column++) {
             sum += array[row][column]

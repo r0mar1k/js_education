@@ -15,13 +15,84 @@
       цього слова. Підрахувати кількість вгаданих букв.
     </p>
     <script>
+      //-----------------------------------1----------------------------------------
+      //Спочатку зробив, а потім зрозумів, що не так зрозумів умову. Але також цікаво:)
+      //----------------------------------------------------------------------------
       //передаємо масив з словами
-      const guessedWordsArray = ["pen", "car", "book"]
-      const answerWordsArray = ["ручка", "машина", "книга"]
+      // const guessedWordsArray = ["pen", "car", "book"]
+      // const answerWordsArray = ["ручка", "машина", "книга"]
+      // //=====================
+      // alert(
+      //   'Вас вітає гра "Перекладач". \nВам потрібно розгадати загадане англійське слово і написати його переклад'
+      // )
+      // function spellWord(word) {
+      //   let wordArr = [...word]
+      //   let index = -1
+      //   function getNextLetter() {
+      //     if (index === wordArr.length - 1) return wordArr
+      //     else ++index
+      //     return wordArr[index]
+      //   }
+      //   return getNextLetter
+      // }
+      // function game(guessedArray, answerArray, textToWord, IndexWordNumber) {
+      //   let i = IndexWordNumber
+      //   let counter = 0
+      //   let ask
+      //   let numberGuessedLetters = 0
+      //   alert(`Підказка: ${textToWord} \n Перша літера -  ${spellLetter()}`)
+      //   counter++
+      //   while (ask !== null) {
+      //     ask = prompt(
+      //       "Введіть переклад цього слова або натисніть: \n `Ок` і покажуть наступну літеру \n `Скасувати` і покажуть наступне слово"
+      //     )
+      //     if (ask === answerArray[i]) {
+      //       alert("Вірно! Наступне слово")
+      //       numberGuessedLetters = guessedArray[i].length - counter
+      //       break
+      //     } else if (ask === null) {
+      //       alert("Наступне слово")
+      //       break
+      //     } else alert("Невірно")
+
+      //     if (counter === guessedArray[i].length) {
+      //       alert(
+      //         `Нажаль всі спроби вичерпано. \nЗагадане слово: ${guessedArray[i]} \nПереклад: ${answerArray[i]} \nНаступне слово`
+      //       )
+      //       break
+      //     }
+      //     alert(
+      //       `Підказка: ${textToWord} \n Наступна літера -  ${spellLetter()}`
+      //     )
+      //     counter++
+      //   }
+      //   return numberGuessedLetters
+      // }
+      // const textWord = [["Цим пишуть"], ["На цьому їздять"], ["Це читають"]]
+      // let numberGuessedLettersArray = []
+      // document.write(`К-ть вгаданих букв: <br>`)
+      // for (let i = 0; i < guessedWordsArray.length; i++) {
+      //   var spellLetter = spellWord(guessedWordsArray[i])
+      //   numberGuessedLettersArray.push(
+      //     game(guessedWordsArray, answerWordsArray, textWord[i], i)
+      //   )
+
+      //   document.write(
+      //     `Слово ${guessedWordsArray[i]} - ${numberGuessedLettersArray[i]} букв<br>`
+      //   )
+      // }
+      // alert("Загадані слова закінчились. Результат на екрані")
+      //----------------------------------2------------------------------------------
+      //А тепер як треба було
+      //-----------------------------------------------------------------------------
+      //масиви з словами та описом ци х слів
+      const guessedWordsArray = ["РУЧКА", "МАШИНА", "КНИГА"]
+      const textWord = [["ЦИМ ПИШУТЬ"], ["НА ЦЬОМУ ЇЗДЯТЬ"], ["ЦЕ ЧИТАЮТЬ"]]
       //=====================
       alert(
-        'Вас вітає гра "Перекладач". \nВам потрібно розгадати загадане англійське слово і написати його переклад'
+        'Вас вітає гра "Перекладач". \nВам потрібно розгадати загадане слово, вводячи по одній літері або слово повністю'
       )
+      //ф-ія замикання в яку передається слово, а вертає по літері
       function spellWord(word) {
         let wordArr = [...word]
         let index = -1
@@ -32,48 +103,44 @@
         }
         return getNextLetter
       }
-      function game(guessedArray, answerArray, textToWord, IndexWordNumber) {
+      //гра
+      function game(textToWord, IndexWordNumber, guessedWord) {
         let i = IndexWordNumber
-        let counter = 0
         let ask
         let numberGuessedLetters = 0
-        alert(`Підказка: ${textToWord} \n Перша літера -  ${spellLetter()}`)
-        counter++
+        let word = ""
+        alert(`Підказка: ${textToWord}`)
         while (ask !== null) {
-          ask = prompt(
-            "Введіть переклад цього слова або натисніть: \n `Ок` і покажуть наступну літеру \n `Скасувати` і покажуть наступне слово"
-          )
-          if (ask === answerArray[i]) {
-            alert("Вірно! Наступне слово")
-            numberGuessedLetters = guessedArray[i].length - counter
-            break
-          } else if (ask === null) {
-            alert("Наступне слово")
-            break
-          } else alert("Невірно")
-
-          if (counter === guessedArray[i].length) {
+          ask = prompt("Введіть літеру або слово повністю")
+          word += ask
+          if (word.toUpperCase() === guessedWord) {
             alert(
-              `Нажаль всі спроби вичерпано. \nЗагадане слово: ${guessedArray[i]} \nПереклад: ${answerArray[i]} \nНаступне слово`
+              `Вірно! Ви розгадали слово повністю. \nСлово ${guessedWord}\nНаступне слово`
             )
+            numberGuessedLetters = guessedWord.length
+            break
+          } else if (ask.toUpperCase() === spellLetter()) {
+            alert("Вірно! Наступна літера")
+            numberGuessedLetters++
+          } else if (ask.toUpperCase() === guessedWord) {
+            alert("Вірно! Наступне слово")
+            numberGuessedLetters = guessedWord.length
+            break
+          } else {
+            alert(`Невірно. Загадане слово ${guessedWord}. \nНаступне слово`)
             break
           }
-          alert(
-            `Підказка: ${textToWord} \n Наступна літера -  ${spellLetter()}`
-          )
-          counter++
         }
         return numberGuessedLetters
       }
-      const textWord = [["Цим пишуть"], ["На цьому їздять"], ["Це читають"]]
+      //цикл для передачі слова в ф-ію замикання, виклик ф-ії гри, виведення результату
       let numberGuessedLettersArray = []
-      document.write(`К-ть вгаданих букв: <br>`)
+      document.write(`К-ть вгаданих букв(и): <br>`)
       for (let i = 0; i < guessedWordsArray.length; i++) {
         var spellLetter = spellWord(guessedWordsArray[i])
         numberGuessedLettersArray.push(
-          game(guessedWordsArray, answerWordsArray, textWord[i], i)
+          game(textWord[i], i, guessedWordsArray[i])
         )
-
         document.write(
           `Слово ${guessedWordsArray[i]} - ${numberGuessedLettersArray[i]} букв<br>`
         )

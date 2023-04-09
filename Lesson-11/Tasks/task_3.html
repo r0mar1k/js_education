@@ -15,55 +15,79 @@
     </p>
     <script>
       //Дано
-      const ROW_NUMBER = 6
-      const COLUMN_NUMBER = 6
+      const FIELD_SIZE = (ROW_NUMBER = COLUMN_NUMBER = 6)
+
       const CELLS_NUMBER = ROW_NUMBER * COLUMN_NUMBER //36
       const SHIPS_NUMBER = 5
+      //-----1------
+      //Якщо потрібно рандомне число від 0 до --, то можна саме так
+      function randomNumber(maxNumber) {
+        return Math.floor(Math.random() * maxNumber)
+      }
+      //1)Створюю одновимівний масив, заповнений 0(бо map з пустим не працює)
+      //2)Блокчейном перетворюю його в двовимірний і також заповнюю 0
+      //3)Шляхом рандомного підбору індексів рядка і колонки ставлю туди 1, скільки є кораблів
+      function getArray(shipsNumber, fieldSize) {
+        let array = new Array(fieldSize)
+          .fill(0)
+          .map(() => new Array(fieldSize).fill(0))
+        for (let ship = 0; ship < shipsNumber; ship++) {
+          let row = randomNumber(fieldSize)
+          let column = randomNumber(fieldSize)
+          if (array[row][column] === 1) ship--
+          else array[row][column] = 1
+        }
+        return array
+      }
+      let battleField = getArray(SHIPS_NUMBER, FIELD_SIZE)
+      console.log(battleField)
+      //-----2------
       //Робимо одновимірний масив
-      function getArray(cellsNumber, shipsNumber) {
-        let array = []
-        const minNumber = 0
-        const maxNumber = 1
-        let counter_0 = 0 //лічильник для кількості нулів
-        let counter_1 = 0 //лічильник для кількості одиниць
-        const quantityNulls = cellsNumber - shipsNumber //перспективна кількість нулів в масиві
-        for (let i = 0; i < cellsNumber; i++) {
-          const randomNumber =
-            minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
-          if (randomNumber === 1 && counter_1 !== shipsNumber) {
-            array.push(randomNumber)
-            counter_1++
-          } else if (randomNumber === 0 && counter_0 < quantityNulls) {
-            array.push(randomNumber)
-            counter_0++
-          } else if (counter_0 >= quantityNulls) array.push(1)
-          else array.push(0)
-        }
-        return array
-      }
-      let oneDimensionalArray = getArray(CELLS_NUMBER, SHIPS_NUMBER)
-      //Робимо з одновимірного масиву двовимірний
-      function getTwoDimensionalArray(
-        rowNumber,
-        columnNumber,
-        oneDimensionalArray
-      ) {
-        let array = new Array(rowNumber)
-        let counter = 0
-        for (let row = 0; row < array.length; row++) {
-          array[row] = new Array()
-          for (let column = 0; column < columnNumber; column++) {
-            array[row].push(oneDimensionalArray[counter])
-            counter++
-          }
-        }
-        return array
-      }
-      let battleField = getTwoDimensionalArray(
-        ROW_NUMBER,
-        COLUMN_NUMBER,
-        oneDimensionalArray
-      )
+      // function getArray(cellsNumber, shipsNumber) {
+      //   let array = []
+      //   const minNumber = 0
+      //   const maxNumber = 1
+      //   let counter_0 = 0 //лічильник для кількості нулів
+      //   let counter_1 = 0 //лічильник для кількості одиниць
+      //   const quantityNulls = cellsNumber - shipsNumber //перспективна кількість нулів в масиві
+      //   for (let i = 0; i < cellsNumber; i++) {
+      //     const randomNumber =
+      //       minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+      //     if (randomNumber === 1 && counter_1 !== shipsNumber) {
+      //       array.push(randomNumber)
+      //       counter_1++
+      //     } else if (randomNumber === 0 && counter_0 < quantityNulls) {
+      //       array.push(randomNumber)
+      //       counter_0++
+      //     } else if (counter_0 >= quantityNulls) array.push(1)
+      //     else array.push(0)
+      //   }
+      //   return array
+      // }
+      // let oneDimensionalArray = getArray(CELLS_NUMBER, SHIPS_NUMBER)
+      // //Робимо з одновимірного масиву двовимірний
+      // function getTwoDimensionalArray(
+      //   rowNumber,
+      //   columnNumber,
+      //   oneDimensionalArray
+      // ) {
+      //   let array = new Array(rowNumber)
+      //   let counter = 0
+      //   for (let row = 0; row < array.length; row++) {
+      //     array[row] = new Array()
+      //     for (let column = 0; column < columnNumber; column++) {
+      //       array[row].push(oneDimensionalArray[counter])
+      //       counter++
+      //     }
+      //   }
+      //   return array
+      // }
+      // let battleField = getTwoDimensionalArray(
+      //   ROW_NUMBER,
+      //   COLUMN_NUMBER,
+      //   oneDimensionalArray
+      // )
+      // console.log(battleField)
       //Гра
       function resultOfGame(array, SHIPS_NUMBER, ROW_NUMBER, COLUMN_NUMBER) {
         let counter = SHIPS_NUMBER //лічильник кількості потоплених кораблів
