@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 2</h1>
+    <p>
+      Розробити функцію, у яку передають об’єкт (день, місяць, рік). Визначити,
+      який буде рік через N місяців.
+    </p>
+    <script>
+      let userDate = {}
+      const day = parseInt(prompt("Введіть день"))
+      userDate.day = day
+      const month = parseInt(prompt("Введіть місяць"))
+      userDate.month = month
+      const year = parseInt(prompt("Введіть рік"))
+      userDate.year = year
+      const N = parseInt(
+        prompt(`Поточна дата ${userDate.day}.${userDate.month}.${userDate.year}\n
+      Введіть к-ть місяців для визначення року`)
+      )
+      //-------------------1-----------------------------
+      // function getYear({ month, year }, N) {
+      //   let monthCounter
+      //   let nextYear = year
+      //   for (let i = 1; i <= N; i++) {
+      //     monthCounter = ((month - 1 + i) % 12) + 1
+      //     if (monthCounter % 12 === 1) nextYear++
+      //   }
+      //   return nextYear
+      // }
+      // let result = getYear(userDate, N)
+      // alert(`Через місяців ${N} буде  ${result} рік`)
+      //---------------------2------------------------------
+      function getYear({ month }, N) {
+        let nextYear = year + Math.floor((month + N - 1) / 12)
+        return nextYear
+      }
+      let result = getYear(userDate, N)
+      alert(`Через ${N} місяці буде  ${result} рік`)
+      //зразок з уроку
+      // function getShiftedMonth({ month }, N) {
+      //   //  (currentValue - min +N)%(max-min+1) +min    //min=1, max =12
+      //   return ((month - 1 + N) % 12) + 1
+      // }
+    </script>
+  </body>
+</html>
