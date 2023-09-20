@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Задача 4</h1>
+    <p>Розробити клас Baner</p>
+    <table>
+      <tr>
+        <td>Поля</td>
+        <td>
+          Масив об’єктів ( графічних зображень та посилань на сайти)
+          <br />
+        </td>
+      </tr>
+      <tr>
+        <td>Методи</td>
+        <td>
+          Метод випадкового вибору об’єкта (графічного зображення та посилання)
+          <br />
+          Метод виведення випадкового банера
+        </td>
+      </tr>
+    </table>
+    <script>
+      class Baner {
+        constructor() {
+          //Fields
+          this.array = [
+            {
+              title: "Google",
+              img: "./img/g.png",
+              link: "https://www.google.com/",
+            },
+            {
+              title: "Facebook",
+              img: "./img/facebook.jpg",
+              link: "https://www.facebook.com/",
+            },
+            {
+              title: "GitHub",
+              img: "./img/github.png",
+              link: "https://www.github.com/",
+            },
+          ]
+        }
+        //Methods
+        getRandomObj = function () {
+          let randomIndex = Math.floor(Math.random() * this.array.length)
+          return `<h1>${this.array[randomIndex].title}</h1>
+		  <br>
+		  <a target="blank" href="${this.array[randomIndex].link}"><img src="${this.array[randomIndex].img}"></a>`
+        }
+        inference = () => document.write(`${this.getRandomObj()}`)
+      }
+      let banner = new Baner()
+      banner.inference()
+    </script>
+  </body>
+</html>

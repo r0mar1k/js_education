@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Задача 5</h1>
+    <p>Розробити клас «Керівник танців»</p>
+    <table>
+      <tr>
+        <td>Поля</td>
+        <td>
+          Масив імен хлопців <br />
+          Масив імен дівчат <br />
+        </td>
+      </tr>
+      <tr>
+        <td>Методи</td>
+        <td>
+          Метод випадкового вибору імені хлопця
+          <br />
+          Метод випадкового вибору імені дівчини <br />
+          Метод виведення пари для танців <br />
+          Метод run , який ініціює через кожні 5 секунд виведення нової пари для
+          танців <br />
+        </td>
+      </tr>
+    </table>
+    <script>
+      class DanceLeader {
+        constructor(boysList, girlsList) {
+          //Fields
+          this.boysList = boysList
+          this.girlsList = girlsList
+        }
+        //Methods
+        getRandomBoy = function () {
+          let randomIndex = Math.floor(Math.random() * this.boysList.length)
+          return this.boysList[randomIndex]
+        }
+        getRandomGirl() {
+          let randomIndex = Math.floor(Math.random() * this.girlsList.length)
+          return this.girlsList[randomIndex]
+        }
+        getCouple() {
+          return `${this.getRandomBoy()} і ${this.getRandomGirl()}`
+        }
+        run(interval) {
+          setInterval(() => {
+            alert(this.getCouple())
+          }, interval * 1000)
+        }
+      }
+      let couple = new DanceLeader(
+        ["Міша", "Вася", "Вітя"],
+        ["Маша", "Віка", "Настя"]
+      )
+      couple.run(5)
+    </script>
+  </body>
+</html>

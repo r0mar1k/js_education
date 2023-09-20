@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Задача 2</h1>
+    <p>
+      Створити об’єкт «Тир». У масиві зберігаються 1, якщо у цьому квадраті є
+      заєць і 0 в іншому випадку.
+    </p>
+    <table>
+      <th>Тир</th>
+      <tr>
+        <td>Поля(властивості)</td>
+        <td>Масив, у якому зберігається поле з зайцями</td>
+      </tr>
+      <tr>
+        <td>Методи (дії)</td>
+        <td>
+          Метод пострілу (задається позиція пострілу) <br />
+          Виведення ігрового поля
+        </td>
+      </tr>
+    </table>
+    <script>
+      //користувач вводить номер поля, на якому він буде стріляти в зайця
+
+      let shootingGallery = {
+        //Properties
+        field: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+        //Methods
+        game: function () {
+          let ask = 1
+          let counter = 0
+          while (isFinite(ask)) {
+            ask = parseInt(
+              prompt("Введіть номер поля від 1-10, де ви будете полювати")
+            )
+            const index = ask - 1
+            if (this.field[index] === 1) {
+              alert("Постріл!")
+              alert("Вітаю! Ви вполювали зайця")
+              counter++
+            } else alert("На даному полі зайців немає! \nМожливо є на інщому?")
+          }
+          alert("Полювання закінчилось")
+          return counter
+        },
+      }
+      let game = shootingGallery.game()
+      document.write(`Результат - ${game} зайці`)
+    </script>
+  </body>
+</html>

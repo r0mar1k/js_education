@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 0</h1>
+    <p>
+      Дано два об’єкта. Обидва містять масив цілих чисел. При цьому у одному з
+      них є функція знаходження суми, а у іншому – функція для знаходження
+      добутку тих, які знаходяться між заданими мінімальним і максимальних
+      значенням.
+    </p>
+    <p>
+      Використати обидва методи стосовно обидвох об’єктів (використати call,
+      apply)
+    </p>
+    <script>
+      let obj1 = {
+        arr: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        sum: function () {
+          return this.arr.reduce((prevSum, elem) => prevSum + elem, 0)
+        },
+      }
+      let obj2 = {
+        arr: [1, 11, 22, 33, 44, 55, 66, 77, 88, 99],
+        productInRange: function (min, max) {
+          return this.arr.reduce(
+            (prevValue, elem) =>
+              elem >= min && elem < max ? prevValue * elem : prevValue,
+            1
+          )
+        },
+      }
+      //call & apply
+      let sum1Obj2 = obj1.sum.call(obj2)
+      let sum2Obj2 = obj1.sum.apply(obj2)
+      let product1Obj1 = obj2.productInRange.call(obj1, 2, 8)
+      let product2Obj1 = obj2.productInRange.apply(obj1, [2, 8])
+      //Виведення
+      console.log("Об_єкт_1")
+      console.log(obj1)
+      console.log("Сума з об_єкту_1")
+      console.log(obj1.sum())
+      console.log("Об_єкт_2")
+      console.log(obj2)
+      console.log("Добуток з об_єкту_2")
+      console.log(obj2.productInRange(2, 40))
+      console.log("Сума з об_єкту_2")
+      console.log(sum1Obj2)
+      console.log(sum2Obj2)
+      console.log("Добуток з об_єкту_1")
+      console.log(product1Obj1)
+      console.log(product2Obj1)
+      document.write("<h3>Результат в консолі</h3>")
+    </script>
+  </body>
+</html>

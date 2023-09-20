@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Задача 3</h1>
+    <p>Створити об’єкт «Авто».</p>
+    <table>
+      <th>Авто</th>
+      <tr>
+        <td>Поля(властивості)</td>
+        <td>
+          Марка <br />
+          Розмір бака <br />
+          Кількість наявних літрів <br />
+          Кількість місць <br />
+          Кількість пасажирів <br />
+        </td>
+      </tr>
+      <tr>
+        <td>Методи (дії)</td>
+        <td>
+          Заправка на вказану кількість літрів <br />
+          Виведення кількості пасажирів <br />
+          Додавання пасажирів <br />
+          Висадка пасажирів <br />
+        </td>
+      </tr>
+    </table>
+    <script>
+      function Auto(mark, tankSize, currentFuel, seatingPlaces, passengers) {
+        this.mark = mark
+        this.tankSize = tankSize
+        this.currentFuel = currentFuel
+        this.seatingPlaces = seatingPlaces
+        this.passengers = passengers
+      }
+      Auto.prototype.addFuel = function (litres) {
+        return (this.currentFuel += litres)
+      }
+      Auto.prototype.printPassengers = function () {
+        console.log(this.passengers)
+      }
+      Auto.prototype.addPassengers = function (passengersNumber) {
+        return (this.passengers += passengersNumber)
+      }
+      Auto.prototype.landing = function (passengersNumber) {
+        return (this.passengers -= passengersNumber)
+      }
+      console.log("Object")
+      let auto = new Auto("Huindai", 40, 20, 5, 5)
+      console.log(auto)
+      console.log("Заправка на 10 літрів")
+      auto.addFuel(10)
+      console.log(auto)
+      console.log("Додавання 5 пасажирів")
+      auto.addPassengers(5)
+      console.log(auto)
+      console.log("Виведення кількості пасажирів")
+      auto.printPassengers()
+      console.log("Висадка 3 пасажирів")
+      auto.landing(3)
+      console.log(auto)
+
+      // let auto = {
+      //   //Properties
+      //   mark: "Huindai",
+      //   tankSize: 40,
+      //   currentFuel: 20,
+      //   seatingPlaces: 5,
+      //   passengers: 5,
+      //   //Methods
+      //   refuel: function (litres) {
+      //     return this.currentFuel + litres
+      //   },
+      //   getPassengers: function (passengersNumber) {
+      //     return this.passengers - passengersNumber
+      //   },
+      //   addPassengers: function (passengersNumber) {
+      //     return this.passengers + passengersNumber
+      //   },
+      //   landing: function (passengersNumber) {
+      //     return this.passengers - passengersNumber
+      //   },
+      // }
+      document.write("<h3>Результат в консолі</h3>")
+    </script>
+  </body>
+</html>

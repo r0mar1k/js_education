@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Задача 3</h1>
+    <p>Розробити клас MultChecker для перевірки таблиці множення</p>
+    <table>
+      <tr>
+        <td>Поля</td>
+        <td>
+          Число, яке перевіряємо (наприклад, перевірка частини таблиці множення
+          на 7) <br />
+          Кількість правильних відповідей <br />
+          Кількість неправильних відповідей <br />
+        </td>
+      </tr>
+      <tr>
+        <td>Методи</td>
+        <td>
+          Генерування прикладу (метод випадковим чином визначає друге число,
+          перше число фіксоване)
+          <br />
+          Перевірка правильності вказаної відповіді <br />
+          render - виведення інформації про тестування на екран <br />
+        </td>
+      </tr>
+    </table>
+    <script>
+      class MultChecker {
+        constructor(number) {
+          //Опис полів
+          this.mainNumber = number
+          this.right = 0
+          this.wrong = 0
+        }
+        //Методи
+        madeElementsForExpression() {
+          const min = 1,
+            max = 10
+          let additionalNumber =
+            min + Math.floor(Math.random() * (max - min + 1))
+          let result = this.mainNumber * additionalNumber
+          return { additionalNumber, result }
+        }
+        askAndCheck() {
+          let answer
+          do {
+            let expression = this.madeElementsForExpression()
+            answer = parseInt(
+              prompt(`${this.mainNumber}x${expression.additionalNumber}=?`)
+            )
+            document.write(
+              `${this.mainNumber}x${expression.additionalNumber}=${expression.result}<br>`
+            )
+            if (answer === expression.result) {
+              this.right++
+              alert("Вірно!")
+            } else {
+              this.wrong++
+              alert("Невірно!")
+            }
+          } while (isFinite(answer))
+          this.render()
+        }
+        render() {
+          document.write(
+            `<br>Правильні відповіді: ${this.right} <br> Неправильні відповіді: ${this.wrong}`
+          )
+        }
+      }
+      alert("Перевірка знань таблиці множення")
+      const number = parseInt(prompt("Вкажіть число", "7"))
+      let multCheckerGame = new MultChecker(number)
+      multCheckerGame.askAndCheck()
+    </script>
+  </body>
+</html>
