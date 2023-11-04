@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 2</h1>
+    <p>
+      Створити клас TMoney для роботи з грошовими сумами. Сума повинна
+      зберігатися у вигляді доларового еквіваленту. Реалізувати методи
+      додавання/вилучення грошової маси, вказуючи необхідну суму у гривнях, та
+      визначення курсу долара, при якому сума у гривнях збільшиться на 100. Курс
+      долара зберігати в окремому полі.
+    </p>
+    <script>
+      class TMoney {
+        #moneyInUSD
+        #currencyValueUSD
+        constructor(initMoney, initCurrencyValueUSD) {
+          this.#currencyValueUSD = initCurrencyValueUSD
+          this.Money = initMoney
+        }
+        get CurrencyValueUSD() {
+          return this.#currencyValueUSD
+        }
+        set CurrencyValueUSD(value) {
+          if (value <= 0) throw new Error("Unavailable operation")
+          this.#currencyValueUSD = value
+        }
+        get Money() {
+          return this.#moneyInUSD
+        }
+        set Money(moneyInUAH) {
+          if (moneyInUAH <= 0) throw new Error("Unavailable operation")
+          this.#moneyInUSD = moneyInUAH / this.#currencyValueUSD
+        }
+
+        //Додавання/вилучення грошей
+        increaseMoney(moneyInUAH) {
+          this.Money = this.Money * this.CurrencyValueUSD + moneyInUAH
+        }
+        decreaseMoney(moneyInUAH) {
+          this.Money = this.Money * this.CurrencyValueUSD - moneyInUAH
+        }
+        //визначення курсу долара, при якому сума у гривнях збільшиться на 100
+        //дуже цікаво, але нічого не зрозуміло..
+        getCurrencyValueWhenUAHinTotalPlus100() {
+          const extra = 100
+          return (this.Money * this.CurrencyValueUSD + extra) / this.Money
+        }
+        toString() {
+          return `На рахунку в гривні: ${(
+            this.Money * this.CurrencyValueUSD
+          ).toFixed(2)}грн <br>В доларах: ${this.Money.toFixed(
+            2
+          )}USD <br>Курс: ${this.CurrencyValueUSD}`
+        }
+      }
+      let moneyBox = new TMoney(1000, 30) //33.33
+      moneyBox.increaseMoney(1000) //66.67
+      moneyBox.decreaseMoney(1000) //33.33
+      document.write(moneyBox)
+      document.write(
+        `<br>Екстра курс(лише родичам + 100грн на конхфети): ${moneyBox.getCurrencyValueWhenUAHinTotalPlus100()} грн/1 usd`
+      )
+    </script>
+  </body>
+</html>

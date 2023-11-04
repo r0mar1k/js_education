@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Задача 3</h1>
+    <table>
+      <th>Об’єкт “Фірма” (використати члени-класи)</th>
+      <tr>
+        <td><b>поля</b></td>
+        <td>
+          <ul>
+            <li>назва фірми;</li>
+            <li>дата заснування (рік, місяць);</li>
+            <li>послуги (назва послуги, вартість, термін виконання);</li>
+            <li>адреси філіалів (країна, місто, вулиця, номер будинку);</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><b>методи</b></td>
+        <td>
+          <ul>
+            <li>визначення кількості років існування фірми;</li>
+            <li>виведення всіх філіалів фірми у вказаному місті;</li>
+            <li>
+              виведення на екран послуг, що можуть бути виконані за вказану суму
+              грошей та вказаний термін часу;
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+    <script>
+      //дата заснування
+      let foundationDate = {
+        month: 2,
+        year: 2005,
+        toString() {
+          return `Дата заснування фірми: ${this.month}.${this.year}`
+        },
+      }
+      //для послуг та філіалів створюю окремі класи
+      class Services {
+        constructor(name, price, deadline) {
+          this.name = name
+          this.price = price
+          this.deadline = deadline
+        }
+        toString() {
+          return `${this.name}, ціна: ${this.price}грн, термін виконання: ${this.deadline} днів<br>`
+        }
+      }
+      //масив з об'єктами послуг
+      let companyServices = [
+        new Services("Доставка", 100, 3),
+        new Services("Установка", 500, 5),
+        new Services("Підключення", 1000, 10),
+      ]
+      class Filiation {
+        constructor(street, number, city, country) {
+          this.country = country
+          this.city = city
+          this.street = street
+          this.number = number
+        }
+        toString() {
+          return `${this.street} ${this.number}, ${this.city}, ${this.country}<br>`
+        }
+      }
+      //масив з об'єктами філіалів
+      let filiations = [
+        new Filiation("Житомирська", 55, "Бердичів", "Україна"),
+        new Filiation("Житомирська", 43, "Бердичів", "Україна"),
+        new Filiation("Центральна", 1, "Хмільник", "Україна"),
+      ]
+      //головний клас
+      class Company {
+        constructor(name, foundationDate, services, filiationAddresses) {
+          this.name = name
+          this.foundationDate = foundationDate
+          this.services = services
+          this.filiationAddresses = filiationAddresses
+        }
+        //методи
+        getCompanyAge() {
+          let currentYear = 2023
+          return currentYear - this.foundationDate.year
+        }
+        getFilialInCity(cityName) {
+          //актуально для виводу в консоль, но не для док.райт
+          // let filiations = this.filiationAddresses.filter(
+          //   (elem, i, array) => array[i].city === cityName
+          // )
+          // return filiations
+          for (const filliation of this.filiationAddresses) {
+            if (cityName === filliation.city) document.write(`${filliation}`)
+          }
+        }
+        getServices(price, time) {
+          //актуально для виводу в консоль, но не для док.райт
+          // let services = this.services.filter(
+          //   (elem, i, array) =>
+          //     price <= array[i].price && time <= array[i].deadline
+          // )
+          // return services
+          for (const service of this.services) {
+            if (price >= service.price && time >= service.deadline)
+              document.write(`${service}`)
+          }
+        }
+        toString() {
+          return `Назва фірми: ${this.name}<br>
+          ${this.getCompanyAge()} років існування фірми`
+        }
+      }
+      let company = new Company(
+        "Telecom",
+        foundationDate,
+        companyServices,
+        filiations
+      )
+      let cityName = "Бердичів"
+      let servicePrice = 600,
+        serviceTerm = 6
+      // console.log(company.getFilialInCity(cityName))
+      // console.log(company.getServices(servicePrice, serviceTerm))
+      document.write(company)
+      document.write(`<br>`)
+      document.write(foundationDate)
+      document.write(`<br>`)
+      document.write(`Наші філіали: <br>${filiations}`)
+      document.write(`Наші послуги: <br>${companyServices}`)
+      document.write(`<br>----------------------------------------<br>`)
+      document.write(`У вказаному місті ${cityName} є такі філіали:<br>`)
+      company.getFilialInCity(cityName)
+      document.write(
+        `За вказаними параметрами ціни: ${servicePrice}грн та сроку: ${serviceTerm} дні є такі послуги:<br>`
+      )
+      company.getServices(servicePrice, serviceTerm)
+    </script>
+  </body>
+</html>

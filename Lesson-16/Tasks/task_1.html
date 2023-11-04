@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 1</h1>
+    <p>
+      Створити клас TDate для роботи із датами у форматі “день.місяць.рік”. Дата
+      представляється структурою із трьома полями. Реалізувати методи
+      збільшення/зменшення дати на певну кількість днів, місяців чи років.
+      Введення та виведення дати реалізувати за допомогою методу toString
+    </p>
+    <script>
+      class TDate {
+        #day
+        #month
+        #year
+        constructor(day, month, year) {
+          this.#day = day
+          this.#month = month
+          this.#year = year
+        }
+        //-------------------гет/сет-----------
+        get Day() {
+          return this.#day
+        }
+        set Day(newDay) {
+          this.#day = newDay
+        }
+        get Month() {
+          return this.#month
+        }
+        set Month(newMonth) {
+          this.#month = newMonth
+        }
+        get Year() {
+          return this.#year
+        }
+        set Year(newYear) {
+          this.#year = newYear
+        }
+        //-------------------------Порядок написання 'молдованський'---------------
+        //перевірка на високосний рік(повертає true/false)
+        isLeapYear(year) {
+          return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+        }
+        //перевірка місяця на к-ть днів
+        //оскільки місяці ідуть по черзі, то можна зробити як масив, але потім -1
+        daysInCurrentMonth(month) {
+          //                 1  2  3  4  5  6  7  8  9  10 11 12
+          let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+          let daysInMonth_leapYear = [
+            31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+          ]
+          if (this.isLeapYear(this.Year)) return daysInMonth_leapYear[month - 1]
+          else return daysInMonth[month - 1]
+        }
+        //-----------------------ЗБІЛЬШЕННЯ------------------------
+        //-----------------------Днів----------------------------
+        increaseDay(newDay) {
+          //буферні змінні
+          let tempDays = this.Day + newDay
+          let tempMonthDays = this.daysInCurrentMonth(this.Month)
+          //цикл в якому по черзі віднімаються дні в кількості згідно календарю і додаються місяці
+          while (tempDays > tempMonthDays) {
+            tempDays -= tempMonthDays
+            this.increaseMonth(1)
+            //оновлення даних
+            tempMonthDays = this.daysInCurrentMonth(this.Month)
+          }
+          this.Day = tempDays
+
+          //-------------------БЕЗ ВРАХУВАННЯ ЧЕРГУВАННЯ ДНІВ В МІСЯЦІ І ВИСОКОСНИЙ РІК(ТУПО 30 ДНІВ)--------
+          // //якщо залишок від ділення на 30 більше-рівне 1, добавить +1 до місяця -- не працює
+          // //крок 1. кількість днів
+          // this.day += newDay
+          // //крок 2. якщо днів більше за 30, то добавить місяці через виклик функції 'додавання місяців'
+          // this.increaseMonth(Math.floor(this.day / 30))
+          // //крок 3. якщо місяців більше за 12, то добавить роки через виклик функції 'додавання років'
+          // //РОКИ КОРЕГУЮТЬСЯ В INCREASEMONTH
+          // //this.increaseYear(Math.floor(this.month / 12))
+          // //крок 4. коригуємо значення днів
+          // this.day = this.day % 30
+          // if (this.day === 0) {
+          //   //встн. 30 при this.day % 30 = 0, бо відлік з 1, а не з 0
+          //   this.day = 30
+          //   this.increaseMonth(-1) //корегування місяця при this.day % 30 = 0(поки іншого не придумав)
+          // }
+        }
+        //-----------------------Місяців----------------------------
+        increaseMonth(newMonth) {
+          this.Month += newMonth //step_1 //якщо число більше за 12, то треба підігнати та добавить роки
+          this.increaseYear(Math.floor(this.Month / 12)) //step_2 //добавить роки
+          //КОЛИ this.month = 24 І this.month % 12 = 0, ТО РІК МАЄ БУТИ +1, А НЕ +2!!!!!!!!!!
+          this.Month = this.Month % 12 //step_3 // корегуємо значення місяців
+          if (this.Month === 0) {
+            //встн. 12 при this.month % 12 = 0, бо відлік з 1, а не з 0
+            this.Month = 12
+            this.decreaseYear(1) //корегування року при this.month % 12 = 0(поки іншого не придумав)
+          }
+        }
+        //-----------------------Років----------------------------
+        increaseYear(newYear) {
+          this.Year += newYear
+        }
+        //-----------------------ЗМЕНШЕННЯ------------------------
+        //1.2.2024 + 30 = 2.3.2024
+        //31
+        //перевірка місяця
+        //перевірка року
+        //якщо 2024 високосний, то
+        //-----------------------Днів----------------------------
+        decreaseDay(newDay) {
+          //буферна змінна
+          let tempDays = this.Day - newDay
+          //цикл в якому по черзі додаються дні в кількості згідно календарю і віднімаються місяці
+          while (tempDays <= 1) {
+            let tempMonthDays = this.daysInCurrentMonth(this.Month)
+            tempDays += tempMonthDays
+            this.decreaseMonth(1)
+          }
+          this.Day = tempDays
+
+          // let monthCounter = 0
+          // while (newDay !== 0) {
+          //   this.day -= 1
+          //   newDay -= 1
+          //   if (this.day === 0) {
+          //     this.day = 30
+          //     monthCounter++
+          //   }
+          // }
+          // this.decreaseMonth(monthCounter)
+        }
+        //-----------------------Місяців----------------------------
+        decreaseMonth(newMonth) {
+          //НА МАЛИХ ЧИСЛАХ НЕ ПРАЦЮЄ
+          //this.month = this.month + 12 + (-newMonth % 12)
+          // 12 -1 = 11
+          // 1-10 = -9
+          //ЦИКЛ?
+          let yearCounter = 0
+          while (newMonth !== 0) {
+            this.Month -= 1
+            newMonth -= 1
+            if (this.Month === 0) {
+              this.Month = 12
+              yearCounter++
+            }
+          }
+          // //this.month = this.month + newMonth + 12 //step_1
+          this.decreaseYear(yearCounter) //step_2 //відняти роки
+          // this.decreaseYear(Math.floor(this.month / 12)) //step_2 //відняти роки
+          //КОЛИ this.month = 24 І this.month % 12 = 0, ТО РІК МАЄ БУТИ +1, А НЕ +2!!!!!!!!!!
+          // this.month = this.month % 12 //step_3 // корегуємо значення місяців
+          // if (this.month === 0) {
+          //   //встн. 12 при this.month % 12 = 0, бо відлік з 1, а не з 0
+          //   this.month = 12
+          //   this.decreaseYear(1) //корегування року при this.month % 12 = 0(поки іншого не придумав)
+          // }
+        }
+        //-----------------------Років----------------------------
+        decreaseYear(newYear) {
+          this.Year -= newYear
+        }
+        toString() {
+          return `${this.Day}.${this.Month}.${this.Year}`
+        }
+      }
+      let date = new TDate(30, 6, 1991)
+      date.increaseYear(9) //30.6.2000
+      date.increaseMonth(6) //30.12.2000
+      date.increaseDay(31) //30.1.2001
+      date.decreaseYear(1) //30.1.2000
+      date.decreaseMonth(2) //30.11.1999
+      date.decreaseDay(60) //31.9.1999
+
+      document.write(`<h1>${date}</h1>`)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 4</h1>
+    <p>
+      Створити клас TBankomat, який моделює роботу банкомата. Клас повинен
+      містити поля для зберігання кількості купюр кожного із номіналів від 5 до
+      200 гривень. Реалізувати методи знаходження максимальної та мінімальної
+      сум, які може видати банкомат, та метод зняття деякої суми.
+    </p>
+    <script>
+      //Клас для створення масиву з об'єктами(купюрами)
+      class Bills {
+        constructor(name, value) {
+          this.name = name
+          this.value = value
+        }
+        toString() {
+          return `${this.name}грн - ${this.value}шт.`
+        }
+      }
+      //Створення масиву з банкнотами
+      let billsArray = [
+        new Bills(5, 20),
+        new Bills(10, 25),
+        new Bills(20, 30),
+        new Bills(50, 35),
+        new Bills(100, 40),
+        new Bills(200, 50),
+      ]
+      //Створення копії масиву для візуального порівняння результату
+      let billsArrayCopy = JSON.parse(JSON.stringify(billsArray))
+      //В банкомат передаємо цей масив
+      class TBankomat {
+        constructor(billsArray) {
+          this.billsArray = billsArray
+        }
+        //знах. макс. суми(тобто підрахунок усіх грошей, заложених в банкомат)
+        showMaxSumMoneyWithdraw() {
+          return this.billsArray.reduce(
+            (prevSum, bill) => prevSum + bill.name * bill.value,
+            0
+          )
+        }
+        //знаходження мін. суми(перебирання купюр з менш. до більшої і по залишку вертає яка мінімал. є в банкоматі)
+        showMinSumMoneyWithdraw() {
+          for (const bill of this.billsArray) {
+            if (bill.value > 0) return bill.name
+            return 0
+          }
+        }
+        //Зняття деякої суми
+        withdrawals(money) {
+          if (
+            money > this.showMaxSumMoneyWithdraw() ||
+            money < this.showMinSumMoneyWithdraw()
+          )
+            throw new Error(`За такі гроші спічки не купиш! Наступний!`)
+          //Треба перебирати billsArray та намагатись віднімати від суми кожну купюру від найбільшої до найм.
+          //від значення жо значення + умова = цикл for
+          //початок з кінця
+          //1-й цикл дає доступ до кожного об'єкту в масиві
+          for (let i = this.billsArray.length - 1; i >= 0 && money !== 0; i--) {
+            //2-й цикл віднімає покупюрно
+            // let billsCounter = 0
+            // while (
+            //   this.billsArray[i].value > 0 &&
+            //   money / this.billsArray[i].name >= 1
+            // ) {
+            //   money -= this.billsArray[i].name
+            //   billsCounter++
+            //   this.billsArray[i].value--
+            // }
+            //this.billsArray[i].value -= billsCounter
+            //-------------------------OR-----------------------
+            if (money / this.billsArray[i].name >= 1) {
+              this.billsArray[i].value -= Math.floor(
+                money / this.billsArray[i].name
+              ) //відняти купюри
+              money = money % this.billsArray[i].name //відняти гроші
+            }
+          }
+          if (money > 0)
+            document.write(
+              `<br><h2>Нажаль даний банкомат не має купюр менше 5 грн, тому ${money} грн позичте в когось.
+                <br>Видано ${
+                  cashWithdrawals - money
+                } грн                </h2><br>`
+            )
+        }
+        //------------------------------------------------------------------------
+        //А можна це якось розумніше зробити? Цикл? Як? Не розумію послідовність написання. Дякую
+        // toString() {
+        //   return `
+        //   ${this.billsArray[0].name} грн - ${this.billsArray[0].value} шт.,
+        //   ${this.billsArray[1].name} грн - ${this.billsArray[1].value} шт.,
+        //   ${this.billsArray[2].name} грн - ${this.billsArray[2].value} шт.,
+        //   ${this.billsArray[3].name} грн - ${this.billsArray[3].value} шт.,
+        //   ${this.billsArray[4].name} грн - ${this.billsArray[4].value} шт.,
+        //   ${this.billsArray[5].name} грн - ${this.billsArray[5].value} шт.
+        //   `
+        // }
+        //Так?:)
+        showBillsArrayAfterOperation() {
+          for (const bill of this.billsArray) {
+            document.write(`${bill.name} грн - ${bill.value} шт.`)
+          }
+        }
+      }
+      const cashWithdrawals = parseInt(prompt("Вкажіть сумму"))
+      let ATM = new TBankomat(billsArrayCopy)
+      document.write(`В банкомат було завантажено: ${billsArray}`)
+      // document.write(ATM)
+      document.write(
+        `<br>Максимальна сума яку може видати банкомат: ${ATM.showMaxSumMoneyWithdraw()}`
+      )
+      document.write(
+        `<br>Мінімальна сума яку може видати банкомат: ${ATM.showMinSumMoneyWithdraw()}`
+      )
+      document.write(`<br>Сумма до зняття: ${cashWithdrawals} грн`)
+      // document.write(`<br>`)
+      ATM.withdrawals(cashWithdrawals)
+      document.write(
+        `<br>Баланс банкомату після операції: ${ATM.showMaxSumMoneyWithdraw()}`
+      )
+      document.write("<br>К-ть купюр після операції: ")
+      ATM.showBillsArrayAfterOperation()
+    </script>
+  </body>
+</html>
