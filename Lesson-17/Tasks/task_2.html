@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 2</h1>
+    <p>
+      Створити службове авто (водій, марка, номер). Створити клас таким чином,
+      щоб можна було створити тільки один екземпляр цього класу.
+    </p>
+    <script>
+      class Auto {
+        static createdObj
+        constructor(driver, model, plate) {
+          if (Auto.createdObj) return Auto.createdObj
+          this.driver = driver
+          this.model = model
+          this.plate = plate
+          Auto.createdObj = this
+        }
+        toString() {
+          return `Driver: ${this.driver}<br>Model: ${this.model}<br>Plate: ${this.plate}<br>`
+        }
+      }
+      let auto1 = new Auto("Микола", "Шевролє", "КОВБОЙ")
+      document.write(`${auto1}`)
+      let auto2 = new Auto("Вітя", "Нива", "ТАНК")
+      document.write(`${auto2}`)
+    </script>
+  </body>
+</html>

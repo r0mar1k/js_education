@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 6</h1>
+    <p>
+      Дано два класи MultChecker (клас для перевірки таблиці множення - рандомно
+      генеруються числа, які треба перемножати), AddChecker (клас для перевірки
+      додавання - рандомно генеруються числа у заданому діапазоні, які треба
+      додавати). Обидва класи надсилають результати тестування об'єкту класу
+      Hystory, який зберігає історію тестування у масиві у вигляді об'єктів.
+      <br />
+      Приклад: <br />
+      testsList= [ <br />
+      {firstNum:1, secondNum:5,opration:’*’, userAnswer:7, correctAnswer:5},
+      {firstNum:3, secondNum:4,opration:’+’, userAnswer:7, correctAnswer:7},
+      <br />
+      ] <br />
+      Можна створити окремий клас TestData, який описує один такий тест і у
+      якому будуть ці поля. Розробити клас TestManager, який використовуючи ці
+      класи за допомогою таймера періодично генерує якісь N задач (рандомно
+      вибираємо, що опитувати: додавання чи множення) і проводить опитування.
+      Результати тестування додаються в об’єкт History. Зробити так, щоб об'єкт
+      такого класу можна було створити тільки один. Коли зроблено ці N задач
+      вивести усю історію на екран.
+    </p>
+    <script>
+      //клас множення
+      class MultiChecker {
+        constructor() {
+          this.firstNum
+          this.secondNum
+          this.operation = "*"
+          this.correctAnswer
+          this.userAnswer
+        }
+        getRandomNumber_1_10() {
+          const minNumber = 1
+          const maxNumber = 10
+          return minNumber + Math.floor(Math.random() * maxNumber)
+        }
+        action() {
+          this.firstNum = this.getRandomNumber_1_10()
+          this.secondNum = this.getRandomNumber_1_10()
+          this.correctAnswer = this.firstNum * this.secondNum
+          this.userAnswer = parseInt(
+            prompt(`${this.firstNum} ${this.operation} ${this.secondNum} = ?`)
+          )
+          if (!isFinite(this.userAnswer)) test.game_stop_timer()
+        }
+        toString() {
+          return `${this.firstNum} ${this.operation} ${this.secondNum} = ${this.correctAnswer}<br>
+User: ${this.userAnswer}<br>`
+        }
+      }
+      // let m = new MultiChecker()
+      //клас додавання
+      class AddChecker {
+        constructor() {
+          this.firstNum
+          this.secondNum
+          this.operation = "+"
+          this.correctAnswer
+          this.userAnswer
+        }
+        getRandomNumber_1_10() {
+          const minNumber = 1
+          const maxNumber = 10
+          return minNumber + Math.floor(Math.random() * maxNumber)
+        }
+        action() {
+          this.firstNum = this.getRandomNumber_1_10()
+          this.secondNum = this.getRandomNumber_1_10()
+          this.correctAnswer = this.firstNum + this.secondNum
+          this.userAnswer = parseInt(
+            prompt(`${this.firstNum} ${this.operation} ${this.secondNum} = ?`)
+          )
+          if (!isFinite(this.userAnswer)) test.game_stop_timer()
+        }
+        toString() {
+          return `${this.firstNum} ${this.operation} ${this.secondNum} = ${this.correctAnswer}<br>
+User: ${this.userAnswer}<br>`
+        }
+      }
+      // let a = new AddChecker()
+      //клас історії
+      class History {
+        static currentHistoryObj
+        constructor() {
+          if (History.currentHistoryObj) return History.currentHistoryObj
+          this.historyArray = []
+          History.currentHistoryObj = this
+        }
+        addToHistory(checker) {
+          this.historyArray.push(checker)
+        }
+        toString() {
+          return `${this.historyArray.join(" ")}`
+        }
+      }
+      let history = new History()
+      //Розробити клас TestManager, який використовуючи ці
+      // класи за допомогою таймера періодично генерує якісь N задач (рандомно
+      // вибираємо, що опитувати: додавання чи множення) і проводить опитування.
+      class TestManager {
+        constructor() {
+          this.intervalTest
+        }
+        game() {
+          let randomTest = Math.floor(Math.random() * 2)
+          if (randomTest === 0) {
+            let m = new MultiChecker()
+            m.action()
+            history.addToHistory(m)
+          } else {
+            let a = new AddChecker()
+            a.action()
+            history.addToHistory(a)
+          }
+        }
+        game_timer() {
+          this.intervalTest = setInterval(() => {
+            this.game()
+          }, 2000)
+        }
+        game_stop_timer() {
+          clearInterval(this.intervalTest)
+          document.write(`${history}`)
+        }
+        game_ask_times(numTimes) {
+          let randomTest
+          for (let i = 0; i < numTimes; i++) {
+            randomTest = Math.floor(Math.random() * 2)
+            if (randomTest === 0) {
+              let m = new MultiChecker()
+              m.action()
+              history.addToHistory(m)
+            } else {
+              let a = new AddChecker()
+              a.action()
+              history.addToHistory(a)
+            }
+          }
+        }
+      }
+      let test = new TestManager()
+      //Варіант №1 з таймером. Не зрозуміло чому таймер-інтервал виходить з методу назовні і показує console.log('Hi!') спочатку. Через це прийшлось document.write(`${history}`) запихнути в game_stop_timer
+      test.game_timer()
+      //Варіант №2 з запитом на кількість прикладів
+      // let ask = parseInt(prompt(`Скільки задач згенерувати?`))
+      // test.game_ask_times(ask)
+      // document.write(`${history}`)
+      console.log("Hi!")
+    </script>
+  </body>
+</html>

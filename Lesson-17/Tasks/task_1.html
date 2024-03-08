@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 1</h1>
+    <p>
+      Створити клас, що дозволяє виконувати такі операції над масивами:
+      знаходження кількості додатних, кількості від’ємних, кількість входжень
+      деякого числа (статичні методи).
+    </p>
+    <script>
+      class ArraysOperations {
+        //Методи
+        // static positiveNumbersCounter(array) {
+        //   return array.filter((el) => el >= 0).length
+        // }
+        static positiveNumbersCounter(array) {
+          return array.reduce((acc, el) => (el >= 0 ? ++acc : acc), 0)
+        }
+        // static negativeNumbersCounter(array) {
+        //   return array.filter((el) => el < 0).length
+        // }
+        static negativeNumbersCounter(array) {
+          return array.reduce((acc, el) => (el < 0 ? ++acc : acc), 0)
+        }
+        //for of
+        // static numberIncludeCounter(array, num) {
+        //   let counter = 0
+        //   for (const iterator of array) {
+        //     if (iterator === num) counter++
+        //   }
+        //   return counter
+        // }
+        static numberIncludeCounter(array, num) {
+          return array.reduce((acc, el) => (el === num ? ++acc : acc), 0)
+        }
+      }
+      let arr = [0, 1, 2, -3, 4, -5, 6, -7, 8, 9, 10, 1]
+      document.write(`В масиві чисел [${arr}]<br>
+      Кількості додатних: ${ArraysOperations.positiveNumbersCounter(arr)}<br>
+      Кількості від'ємних: ${ArraysOperations.negativeNumbersCounter(arr)}<br>
+      Кількість входжень числа '1': ${ArraysOperations.numberIncludeCounter(
+        arr,
+        1
+      )}<br>`)
+    </script>
+  </body>
+</html>

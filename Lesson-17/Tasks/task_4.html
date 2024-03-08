@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 4</h1>
+    <p>
+      Склад. База товарів, які зберігаються на складі: назва товару, одиниця
+      виміру, кількість, фірма виробник (назва, реєстраційний номер).
+      Організувати реєстрацію/відвантаження товарів, фільтрація за назвою
+      товару, фільтрація за назвою фірми.
+    </p>
+    <script>
+      class Maker {
+        constructor(name) {
+          this.name = name
+          this.regNum = new Date().getTime()
+        }
+        toString() {
+          return `Фірма: ${this.name} Реєстраційний номер: ${this.regNum}`
+        }
+      }
+      class Product {
+        //Чи можна зробити кількість приватним полем? +
+        #quantity = 0
+        constructor(name, countVal, quantity, makerName) {
+          this.name = name
+          this.countVal = countVal
+          this.Quantity = quantity //!!!!
+          this.maker = new Maker(makerName)
+        }
+        get Quantity() {
+          return this.#quantity
+        }
+        set Quantity(newVal) {
+          if (newVal < 0) throw new Error("Неможлива така кількість")
+          this.#quantity = newVal
+        }
+        toString() {
+          return `Назва товару: ${this.name}<br>
+  Одиниця виміру: ${this.countVal}<br>
+  К-ть: ${this.Quantity}<br>
+  Виробник: ${this.maker}<br>`
+        }
+      }
+      class Store {
+        //id товару? -
+        constructor() {
+          this.storeArray = []
+        }
+        //виклик.добавить товар(дані)
+        addProduct(product) {
+          this.storeArray.push(product)
+        }
+        // addNewProduct(prodName, countVal, quantity, makerName, regNum) {
+        //   let product = new Product(prodName, countVal, quantity, maker)
+        //   this.storeArray.push(product)
+        //   Store.productCounter++
+        // }
+        //====відвантажити товар
+        subtractQuantitySomeProduct(name, newQuantity) {
+          this.storeArray.find((product) => product.name === name).Quantity -=
+            newQuantity
+        }
+        // this.storeArray.forEach((prod) => {
+        //   if (prod.name === name && prod.quantity - newQuantity >= 0) {
+        //     prod.quantity -= newQuantity
+        //     document.write(`${prod.name} у к-ті ${newQuantity} шт.<br>
+        //     Залишилось ${prod.quantity} шт.`)
+        //   } else document.write(`Даного товару '${name}' немає в наявності`)
+        // })
+        //===додати кількість вже існуючого товару
+        addQuantitySomeProduct(name, newQuantity) {
+          this.storeArray.find((product) => product.name === name).Quantity +=
+            newQuantity
+        }
+
+        //фільтрація за назвою виробника
+        showProductByMaker(name) {
+          for (const product of this.storeArray) {
+            if (product.maker.name === name) document.write(`${product}`)
+          }
+        }
+        //фільтрація на назвою фірми
+        showProductByName(name) {
+          for (const product of this.storeArray) {
+            if (product.name === name) document.write(`${product}`)
+          }
+        }
+        toString() {
+          // return `${this.storeArray.map((product) => product.toString())}`
+          return this.storeArray.join("<br>")
+        }
+      }
+      let myShop = new Store()
+      myShop.addProduct(new Product("Банка", "шт.", 20, "Закрутка"))
+      myShop.addProduct(new Product("Кришка", "шт.", 20, "Закрутка"))
+      myShop.addProduct(new Product("Відро", "шт.", 50, "Водонос"))
+      myShop.addProduct(new Product("Лопата", "шт.", 10, "ХендМейд"))
+      myShop.addProduct(new Product("Вила", "шт.", 15, "ХендМейд"))
+      document.write(`<h3>Початкова завантаженість складу:</h3>${myShop}`)
+      document.write("=======================================<br>")
+      document.write(`Відвантажено:<br>
+      Відро 40 шт.<br>
+      Лопата 1 шт.<br>
+      Вила 5 шт.<br>`)
+      myShop.subtractQuantitySomeProduct("Відро", 40)
+      // myShop.addQuantitySomeProduct("Відро", 2)
+      myShop.subtractQuantitySomeProduct("Лопата", 1)
+      myShop.subtractQuantitySomeProduct("Вила", 5)
+      document.write("=======================================<br>")
+      document.write(`Фільтрація по назві "Лопата":<br>`)
+      myShop.showProductByName("Лопата")
+      document.write("=======================================<br>")
+      document.write(`Фільтрація по виробнику "Закрутка":<br>`)
+      myShop.showProductByMaker("Закрутка")
+      document.write(`<h3>Кінцева завантаженість складу:</h3>${myShop}`)
+    </script>
+  </body>
+</html>

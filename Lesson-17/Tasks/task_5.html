@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 5</h1>
+    <p>
+      Особиста бібліотека. Картотека домашньої бібліотеки: дані книги (автори
+      (піб, рік народження, короткий опис), назва книги, жанр, видавництво
+      (назва, реєстраційний номер, рік засування)). Реалізувати розділи
+      бібліотеки (спеціальна література, хобі, домашнє господарство і т.д.),
+      походження книги і наявність на даний час. Організувати
+      додавання/вилучення книг та вибір книг за назвою, за ПІБ автора, за
+      видавництвом.
+    </p>
+    <script>
+      //--автор
+      class Author {
+        constructor(name, birth, about) {
+          this.authorName = name
+          this.birth = birth
+          this.about = about
+        }
+      }
+      //--видавництво
+      class Publication {
+        constructor(name, regNum, foundationYear) {
+          this.publicName = name
+          this.regNum = regNum
+          this.foundationYear = foundationYear
+        }
+      }
+      //--книга
+      class Book {
+        constructor(name, genre, author, publication) {
+          this.bookName = name
+          this.genre = genre
+
+          Object.assign(this, author)
+          Object.assign(this, publication)
+        }
+        toString() {
+          return `<br>Назва книги: ${this.bookName}<br>
+                    Жанр: ${this.genre}<br>
+                    Автор: ${this.authorName}<br>
+                    Дата народження: ${this.birth}<br>
+                    Про автора: ${this.about}<br>
+                    Видавництво: ${this.publicName}<br>
+                    Регістраційний номер: ${this.regNum}<br>
+                    Дата заснування: ${this.foundationYear}<br>
+                    `
+        }
+      }
+      //Бібліотека
+      class Library {
+        constructor() {
+          this.library = []
+        }
+        //розподілятор по розділам(додавати властивість в об'єкт)
+        //або створити різні масиви і пхати їх туди +
+        //id, як ідентифікатор(номер секції)
+        addBookToSection(id, book) {
+          let index = id - 1
+          this.library[index].books.push(book)
+        }
+        //створити розділ
+        addSection(sectionName) {
+          let section = {
+            sectionName: sectionName,
+            books: [],
+          }
+          this.library.push(section)
+        }
+        //вилучення книги
+        removeBook(bookName) {
+          //секції
+          for (const section of this.library) {
+            for (let iBook = 0; iBook < section.books.length; iBook++) {
+              if (bookName === section.books[iBook].bookName)
+                return section.books.splice(iBook, 1)
+            }
+          }
+        }
+        //вибір книги за назвою
+        showInfoAboutBookByName(bookName) {
+          for (const section of this.library) {
+            for (const books of section.books) {
+              if (bookName === books.bookName) document.write(books)
+            }
+          }
+        }
+        //вибір книги за автором
+        showInfoAboutBookByAuthor(authorName) {
+          for (const section of this.library) {
+            for (const books of section.books) {
+              if (authorName === books.authorName) document.write(books)
+            }
+          }
+        }
+        //вибір книги за видавництвом
+        showInfoAboutBookByPublication(publicName) {
+          for (const section of this.library) {
+            for (const books of section.books) {
+              if (publicName === books.publicName) document.write(books)
+            }
+          }
+        }
+      }
+      //-----------створення книжок-------------------
+      let b1 = new Book(
+        "Івасик Телесик",
+        "Казка",
+        new Author("Іван Петрович", "20.04.1984", "український письменник"),
+        new Publication("Нова зоря", 45206, 2000)
+      )
+      let b2 = new Book(
+        "Основи JS",
+        "Навчальна література",
+        new Author("Федір Васильович", "03.04.1990", "розробник, програміст"),
+        new Publication("Північ", 206, 1999)
+      )
+      let b3 = new Book(
+        "Фермерська справа. Частина 1",
+        "Робочі матеріали",
+        new Author("Крістіан Йоргенсен", "27.06.1988", "Данський фермер"),
+        new Publication("Жул'єн", 12345, 2007)
+      )
+      let b4 = new Book(
+        "Фермерська справа. Частина 2",
+        "Робочі матеріали",
+        new Author("Крістіан Йоргенсен", "27.06.1988", "Данський фермер"),
+        new Publication("Жул'єн", 12345, 2007)
+      )
+      let b5 = new Book(
+        "Фермерська справа. Частина 3",
+        "Робочі матеріали",
+        new Author("Крістіан Йоргенсен", "27.06.1988", "Данський фермер"),
+        new Publication("Жул'єн", 12345, 2007)
+      )
+      //====================================================================
+      let myLibrary = new Library()
+      myLibrary.addSection("Спеціальна література")
+      myLibrary.addSection("Хоббі")
+      myLibrary.addSection("Робота")
+      document.write("Розділи бібліотеки:<br>")
+      // for (let i = 0; i < myLibrary.library.length; i++) {
+      //   document.write(`${i + 1}. ${myLibrary.library[i].sectionName}<br>`)
+      // }
+      document.write(`<ol>`)
+      myLibrary.library.forEach((section) => {
+        document.write(`<li>${section.sectionName}</li>`)
+      })
+      document.write(`</ol>`)
+      myLibrary.addBookToSection(1, b2)
+      myLibrary.addBookToSection(2, b1)
+      myLibrary.addBookToSection(3, b3)
+      myLibrary.addBookToSection(3, b4)
+      myLibrary.addBookToSection(3, b5)
+      console.log(myLibrary)
+      myLibrary.removeBook("Основи JS")
+      document.write("Пошук книги за назвою 'Івасик Телесик':<br>")
+      myLibrary.showInfoAboutBookByName("Івасик Телесик")
+      document.write("<br>")
+      document.write("Пошук книги за автором 'Крістіан Йоргенсен':<br>")
+      myLibrary.showInfoAboutBookByAuthor("Крістіан Йоргенсен")
+      document.write("<br>")
+      document.write("Пошук книги за видавництвом 'Нова зоря':<br>")
+      myLibrary.showInfoAboutBookByPublication("Нова зоря")
+    </script>
+  </body>
+</html>
