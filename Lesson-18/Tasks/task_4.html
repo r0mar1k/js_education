@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    const wishList = [
+      "Миру в Україні",
+      "Повернутись додому",
+      "Щастя",
+      "Здоровля",
+      "Діточок, як на небі зірочок",
+      "Щоб напали гроші",
+    ]
+    function getRandomIndex() {
+      const minNum = 0
+      const maxNum = wishList.length - 1
+      return minNum + Math.floor(Math.random() * maxNum)
+    }
+    function wishes() {
+      for (let i = 0; i < 3; i++) {
+        const newDiv = document.createElement("div")
+        const wish = wishList[getRandomIndex()]
+        document.body.append(newDiv)
+        document.getElementsByTagName("div")[i].innerText = wish
+      }
+    }
+    window.onload = wishes
+  </script>
+  <body>
+    <h1>Задача 4</h1>
+    <p>
+      Наперед задано у скрипті масив зі списком бажань. Після завантаження
+      сторінки випадковим чином вибираються 3 і відображаються у окремих div (їх
+      треба створити і додати на сторінку)
+    </p>
+  </body>
+</html>

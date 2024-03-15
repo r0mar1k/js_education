@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 5</h1>
+    <p>
+      Відобразити таблицю 3*4 з випадковими числами (її треба динамічно створити
+      і вставити на сторінку)
+    </p>
+  </body>
+  <script>
+    // Функція
+    //Створити таблицю
+    //Запихнути в таблицю рядок
+    //В рядок комірки
+    // Наступний рядок
+    // І т.д.
+    function getRandomNumber() {
+      const minNum = 0
+      const maxNum = 100
+      return minNum + Math.floor(Math.random() * maxNum)
+    }
+    function tableCreate() {
+      //Спочатку створюється таблиця
+      const newTable = document.createElement("table")
+      // const bodyTable = document.createElement("tbody")
+      newTable.style.border = "1px solid black"
+      // newTable.append(bodyTable)
+      document.body.append(newTable)
+      // В таблиці лічильник рядків, к-ть 3
+      for (let i = 0; i < 3; i++) {
+        const newRow = document.createElement("tr")
+        newRow.id = i
+        newTable.append(newRow)
+        // В рядках лічильник комірок, к-ть 4
+        for (let j = 0; j < 4; j++) {
+          const newData = document.createElement("td")
+          newData.style.border = "1px solid black"
+          newData.innerText = getRandomNumber()
+          const currentRow = document.getElementById(`${i}`)
+          currentRow.append(newData)
+        }
+      }
+    }
+    // window.onload = tableCreate <= треба, якщо скріпт описаний до body
+    tableCreate()
+  </script>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 1</h1>
+    <p>Розробити калькулятор.</p>
+    <img src="img/1.jpg" alt="t1" />
+    <script>
+      function addition() {
+        const num1 = parseFloat(document.getElementById("inp_1").value)
+        const num2 = parseFloat(document.getElementById("inp_2").value)
+        const sum = num1 + num2
+        document.getElementById("result").value = sum
+      }
+      function subtract() {
+        const num1 = parseFloat(document.getElementById("inp_1").value)
+        const num2 = parseFloat(document.getElementById("inp_2").value)
+        const sum = num1 - num2
+        document.getElementById("result").value = sum
+      }
+      function multiplying() {
+        const num1 = parseFloat(document.getElementById("inp_1").value)
+        const num2 = parseFloat(document.getElementById("inp_2").value)
+        const sum = num1 * num2
+        document.getElementById("result").value = sum
+      }
+      function division() {
+        const num1 = parseFloat(document.getElementById("inp_1").value)
+        const num2 = parseFloat(document.getElementById("inp_2").value)
+        const sum = num1 / num2
+        document.getElementById("result").value = sum
+      }
+      window.onload = function () {
+        document.getElementById("additionButton").onclick = addition
+        document.getElementById("subtractButton").onclick = subtract
+        document.getElementById("multiplyingButton").onclick = multiplying
+        document.getElementById("divisionButton").onclick = division
+      }
+    </script>
+    <div>
+      <label
+        >First number
+        <input type="number" id="inp_1" />
+      </label>
+      <div>
+        <label
+          >Second number
+          <input type="number" id="inp_2" />
+        </label>
+      </div>
+      <button id="additionButton">Додати</button>
+      <button id="subtractButton">Відняти</button>
+      <button id="multiplyingButton">Помножити</button>
+      <button id="divisionButton">Поділити</button>
+      <br />
+      <br />
+      <div>
+        <label
+          >Result
+          <input type="number" readonly id="result" />
+        </label>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function getTable() {
+        const scoresNum = document.querySelector("input").value
+        const inputDiv = document.getElementById("inputDiv")
+        for (let x = 0; x < scoresNum; x++) {
+          const newInput = document.createElement("input")
+          newInput.type = "number"
+          newInput.className = "scores"
+          inputDiv.append(newInput)
+        }
+      }
+      function getAverageScore() {
+        //цикл рахування інпутів, вибірка по ID
+        const inputsCollection = document.getElementsByClassName("scores") //всі новостворені інпути
+        let sum = 0
+        let counter = 0 //або можна використати довжину колекції
+        for (const input of inputsCollection) {
+          sum += parseFloat(input.value)
+          counter++
+        }
+        const averageScore = sum / counter
+
+        document.getElementById("resultSpan").innerText =
+          averageScore.toFixed(1)
+      }
+      // function check() {
+      //   console.log("Works!")
+      // }
+      window.onload = function () {
+        document.querySelector("button").onclick = getTable
+        document.getElementById("resultB").onclick = getAverageScore
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Задача 6</h1>
+    <p>
+      Користувач задає кількість оцінок і натискає на кнопку «get table». В
+      результаті формується таблиця з input, куди користувач вводить оцінки.
+      Після цього натискає на кнопку “get sum” і знаходить середнє значення.
+    </p>
+    <img src="img/6.jpg" alt="t6" />
+    <div>
+      <label for="">Кількість оцінок</label>
+      <input type="number" />
+    </div>
+    <button>Get table</button>
+    <br />
+    <div id="inputDiv">
+      <!-- Тут з'являться інпути -->
+    </div>
+    <br />
+    <button id="resultB">Get sum</button>
+    <p>
+      <!-- результат -->
+      Sum = <span id="resultSpan"></span>
+    </p>
+  </body>
+</html>

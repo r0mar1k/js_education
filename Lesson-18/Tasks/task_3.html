@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Задача 3</h1>
+    <p>
+      Користувач задає рік народження. Визначити кількість років користувача.
+    </p>
+    <script>
+      function getAge() {
+        const currentYear = 2024
+        const year = parseInt(document.getElementsByTagName("input")[0].value)
+        const result = currentYear - year
+        document.getElementsByTagName("input")[1].value = result
+      }
+      window.onload = function () {
+        document.querySelector("button").onclick = getAge
+      }
+    </script>
+    <div>
+      <label
+        >Рік народження
+        <input type="number" />
+      </label>
+      <br />
+      <button>Визначити кількість років</button>
+    </div>
+    <label
+      >Вам
+      <input type="number" readonly />
+    </label>
+  </body>
+</html>
