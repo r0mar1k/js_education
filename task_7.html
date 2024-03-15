@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #checkedDiv {
+        display: flex;
+        width: 54%;
+      }
+      #checkedDiv_1 {
+        flex: 1;
+        margin-right: 0px;
+      }
+      #checkedDiv_2 {
+        margin-right: 20px;
+      }
+      #checkedDiv_3 {
+        padding-left: 20px;
+      }
+    </style>
+    <script>
+      function countTrip(identifier) {
+        let sum = 0
+        //транспорт
+        const transportPrice = parseInt(
+          document.getElementById(`transport${identifier}`).value
+        )
+        sum += transportPrice
+        // харчування
+        const mealPrice = document.querySelectorAll(`#meal${identifier}`)
+        for (const meal of mealPrice) {
+          if (meal.checked) sum += parseInt(meal.value)
+        }
+        // гід
+        const guidePrice = document.querySelectorAll(`#guide${identifier}`)
+        for (const guide of guidePrice) {
+          if (guide.checked) sum += parseInt(guide.value)
+        }
+        let result = document.getElementById(`result${identifier}`)
+        result.innerText = sum
+        return sum
+      }
+      //варіант №1
+      // function getTotalSum() {
+      //   const totalSum =
+      //     parseInt(document.getElementById("result_1").textContent) +
+      //     parseInt(document.getElementById("result_2").textContent) +
+      //     parseInt(document.getElementById("result_3").textContent)
+      //   document.getElementById("totalResult").innerText = totalSum
+      // }
+      //варіант №2
+      function getTotalSum() {
+        const totalSum = countTrip("_1") + countTrip("_2") + countTrip("_3")
+        document.getElementById("totalResult").innerText = totalSum
+      }
+      //1. не зрозуміло чому працює саме так. Бо коли скріпт зверху і прописано window.onload, то не працює
+      // document.querySelector("#checkedDiv_1").onchange = function () {
+      //   countTrip("_1")
+      // }
+      // document.querySelector("#checkedDiv_2").onchange = function () {
+      //   countTrip("_2")
+      // }
+      // document.querySelector("#checkedDiv_3").onchange = function () {
+      //   countTrip("_3")
+      // }
+      // =================================================
+      //2. тепер зрозуміло. щоб запустити функцію, котрій передається якесь значення, тра робити функцію в функції
+      // але це тільки коти тра писать window.onload
+      window.onload = function () {
+        document.querySelector("#checkedDiv_1").onchange = function () {
+          countTrip("_1")
+        }
+        document.querySelector("#checkedDiv_2").onchange = function () {
+          countTrip("_2")
+        }
+        document.querySelector("#checkedDiv_3").onchange = function () {
+          countTrip("_3")
+        }
+        document.querySelector("#checkedDiv").onchange = getTotalSum
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Задача 7</h1>
+    <p>
+      Подорож складається з 3 етапів. На кожному етапі користувач може вибрати
+      один з видів транспорту (авто, автобус, літак - випадаючий список),
+      харчування (сніданок, обід, вечеря – checkbоx) та одного з 3-х
+      гідів(використати - radio buttons). Ціни визначте самі. Підрахувати
+      загальну вартість.
+    </p>
+    <!-- загорнуто в загальний DIV для обчислення загальної суми -->
+    <div id="checkedDiv">
+      <div id="checkedDiv_1">
+        <h1>Етап І</h1>
+        <div>
+          <h3>Транспорт</h3>
+          <select id="transport_1">
+            <option value="0">Пішки</option>
+            <option value="600">Авто</option>
+            <option value="400">Автобус</option>
+            <option value="1000">Літак</option>
+          </select>
+        </div>
+        <div>
+          <h3>Харчування</h3>
+          <label
+            >Сніданок
+            <input type="checkbox" id="meal_1" value="100" />
+          </label>
+          <label
+            >Обід
+            <input type="checkbox" id="meal_1" value="300" />
+          </label>
+          <label
+            >Вечеря
+            <input type="checkbox" id="meal_1" value="200" />
+          </label>
+        </div>
+        <div>
+          <h3>Гід</h3>
+          <div>
+            <label
+              >Без гіда
+              <input
+                type="radio"
+                id="guide_1"
+                value="0"
+                name="guide1"
+                checked
+              />
+            </label>
+          </div>
+          <div>
+            <label
+              >Барон Мюнхаузен
+              <input type="radio" id="guide_1" value="1000" name="guide1" />
+            </label>
+          </div>
+          <div>
+            <label id="spec"
+              >Василь Петрович
+              <input type="radio" id="guide_1" value="200" name="guide1" />
+            </label>
+          </div>
+          <div>
+            <label
+              >Ольга Всезнайківна
+              <input type="radio" id="guide_1" value="500" name="guide1" />
+            </label>
+          </div>
+        </div>
+        <div>Вартість першого етапу: <span id="result_1">0</span></div>
+      </div>
+      <div id="checkedDiv_2">
+        <h1>Етап ІІ</h1>
+        <div>
+          <h3>Транспорт</h3>
+          <select id="transport_2">
+            <option value="0">Пішки</option>
+            <option value="600">Авто</option>
+            <option value="400">Автобус</option>
+            <option value="1000">Літак</option>
+          </select>
+        </div>
+        <div>
+          <h3>Харчування</h3>
+          <label
+            >Сніданок
+            <input type="checkbox" id="meal_2" value="100" />
+          </label>
+          <label
+            >Обід
+            <input type="checkbox" id="meal_2" value="300" />
+          </label>
+          <label
+            >Вечеря
+            <input type="checkbox" id="meal_2" value="200" />
+          </label>
+        </div>
+        <div>
+          <h3>Гід</h3>
+          <div>
+            <label
+              >Без гіда
+              <input
+                type="radio"
+                id="guide_2"
+                value="0"
+                name="guide2"
+                checked
+              />
+            </label>
+          </div>
+          <div>
+            <label
+              >Барон Мюнхаузен
+              <input type="radio" id="guide_2" value="1000" name="guide2" />
+            </label>
+          </div>
+          <div>
+            <label id="spec"
+              >Василь Петрович
+              <input type="radio" id="guide_2" value="200" name="guide2" />
+            </label>
+          </div>
+          <div>
+            <label
+              >Ольга Всезнайківна
+              <input type="radio" id="guide_2" value="500" name="guide2" />
+            </label>
+          </div>
+        </div>
+        <div>Вартість другого етапу: <span id="result_2">0</span></div>
+      </div>
+      <div id="checkedDiv_3">
+        <h1>Етап ІІІ</h1>
+        <div>
+          <h3>Транспорт</h3>
+          <select id="transport_3">
+            <option value="0">Пішки</option>
+            <option value="600">Авто</option>
+            <option value="400">Автобус</option>
+            <option value="1000">Літак</option>
+          </select>
+        </div>
+        <div>
+          <h3>Харчування</h3>
+          <label
+            >Сніданок
+            <input type="checkbox" id="meal_3" value="100" />
+          </label>
+          <label
+            >Обід
+            <input type="checkbox" id="meal_3" value="300" />
+          </label>
+          <label
+            >Вечеря
+            <input type="checkbox" id="meal_3" value="200" />
+          </label>
+        </div>
+        <div>
+          <h3>Гід</h3>
+          <div>
+            <label
+              >Без гіда
+              <input
+                type="radio"
+                id="guide_3"
+                value="0"
+                name="guide3"
+                checked
+              />
+            </label>
+          </div>
+          <div>
+            <label
+              >Барон Мюнхаузен
+              <input type="radio" id="guide_3" value="1000" name="guide3" />
+            </label>
+          </div>
+          <div>
+            <label id="spec"
+              >Василь Петрович
+              <input type="radio" id="guide_3" value="200" name="guide3" />
+            </label>
+          </div>
+          <div>
+            <label
+              >Ольга Всезнайківна
+              <input type="radio" id="guide_3" value="500" name="guide3" />
+            </label>
+          </div>
+        </div>
+        <div>Вартість третього етапу: <span id="result_3">0</span></div>
+      </div>
+    </div>
+    <h2>
+      Загальна вартість:
+      <span id="totalResult">0</span>
+    </h2>
+  </body>
+</html>
