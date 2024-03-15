@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      #checkedDiv {
+        display: flex;
+        width: 54%;
+      }
+      #checkedDiv_1 {
+        flex: 1;
+        margin-right: 0px;
+      }
+      #checkedDiv_2 {
+        margin-right: 20px;
+      }
+      #checkedDiv_3 {
+        padding-left: 20px;
+      }
+    </style>
     <script>
       function countTrip(identifier) {
         let sum = 0
@@ -77,8 +93,8 @@
     </p>
     <!-- загорнуто в загальний DIV для обчислення загальної суми -->
     <div id="checkedDiv">
-      <h1>Етап І</h1>
       <div id="checkedDiv_1">
+        <h1>Етап І</h1>
         <div>
           <h3>Транспорт</h3>
           <select id="transport_1">
@@ -136,10 +152,10 @@
             </label>
           </div>
         </div>
+        <div>Вартість першого етапу: <span id="result_1">0</span></div>
       </div>
-      <div>Вартість першого етапу: <span id="result_1">0</span></div>
-      <h1>Етап ІІ</h1>
       <div id="checkedDiv_2">
+        <h1>Етап ІІ</h1>
         <div>
           <h3>Транспорт</h3>
           <select id="transport_2">
@@ -197,10 +213,10 @@
             </label>
           </div>
         </div>
+        <div>Вартість другого етапу: <span id="result_2">0</span></div>
       </div>
-      <div>Вартість другого етапу: <span id="result_2">0</span></div>
-      <h1>Етап ІІІ</h1>
       <div id="checkedDiv_3">
+        <h1>Етап ІІІ</h1>
         <div>
           <h3>Транспорт</h3>
           <select id="transport_3">
@@ -258,8 +274,8 @@
             </label>
           </div>
         </div>
+        <div>Вартість третього етапу: <span id="result_3">0</span></div>
       </div>
-      <div>Вартість третього етапу: <span id="result_3">0</span></div>
     </div>
     <h2>
       Загальна вартість:
